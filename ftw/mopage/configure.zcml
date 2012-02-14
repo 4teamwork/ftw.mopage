@@ -1,0 +1,20 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:five="http://namespaces.zope.org/five"
+    xmlns:genericsetup="http://namespaces.zope.org/genericsetup"
+    xmlns:i18n="http://namespaces.zope.org/i18n"
+    i18n_domain="ftw.mopage">
+    
+  <five:registerPackage package="." initialize=".initialize" />
+
+  <include package=".browser" />
+
+  <genericsetup:registerProfile
+      name="default"
+      title="ftw.mopage"
+      directory="profiles/default"
+      description="MoPage xml-exports"
+      provides="Products.GenericSetup.interfaces.EXTENSION"
+      />
+
+</configure>

@@ -1,0 +1,27 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="ftw.mopage">
+
+  <browser:page
+      for="*"
+      name="mopage_geolocations"
+      class=".geolocations.ExportGeoLocations"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="*"
+      name="mopage_events"
+      class=".events.ExportEvents"
+      permission="zope2.View"
+      />
+
+  <browser:page
+      for="*"
+      name="mopage_news"
+      class=".news.ExportNews"
+      permission="zope2.View"
+      />
+
+</configure>

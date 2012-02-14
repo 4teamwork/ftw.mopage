@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<object name="portal_properties">
+    <object name="mopage_properties" meta_type="Plone Property Sheet">
+        <property name="title">MoPage properties</property>
+        <property name="partner" type="string">Partner AG</property>
+        <property name="partnerid" type="string">99</property>
+    </object>
+</object>

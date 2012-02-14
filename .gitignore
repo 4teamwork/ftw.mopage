@@ -1,0 +1,13 @@
+.installed.cfg
+.mr.developer.cfg
+bin
+buildout.cfg
+develop-eggs
+downloads
+eggs
+fake-eggs
+parts
+src
+var
+_build
+.DS_Store
