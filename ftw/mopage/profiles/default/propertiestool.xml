@@ -5,5 +5,8 @@
         <property name="partner" type="string">Partner AG</property>
         <property name="partnerid" type="string">99</property>
         <property name="password" type="string">secret</property>
+        <property name="importid_geolocations" type="string">1</property>
+        <property name="importid_news" type="string">1</property>
+        <property name="importid_events" type="string">1</property>
     </object>
 </object>

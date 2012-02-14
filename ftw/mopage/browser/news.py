@@ -9,11 +9,8 @@ class ExportNews(BrowserView):
     template = ViewPageTemplateFile('news.xml')
 
     def __call__(self):
-        properties = getToolByName(self.context,
-                                   'portal_properties').mopage_properties
-        self.partner = properties.partner
-        self.partnerid = properties.partnerid
-        self.password = properties.password
+        self.properties = getToolByName(self.context,
+                                        'portal_properties').mopage_properties
         if self.request.form.get('plain', 0) != '1':
             self.context.REQUEST.RESPONSE.setHeader(
                 'Content-Type',

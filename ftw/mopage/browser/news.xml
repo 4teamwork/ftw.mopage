@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <import xmlns:tal="http://xml.zope.org/namespaces/tal"
-        tal:attributes="partner view/partner;
-                        partnerid view/partnerid;
-                        passwort view/password"
-        importid="1">
+        tal:define="properties view/properties"
+        tal:attributes="partner properties/partner;
+                        partnerid properties/partnerid;
+                        passwort properties/password;
+                        importid properties/importid_news">
   <tal:items repeat="item view/items">
     <item status="1" suchbar="1"
           tal:attributes="datumvon item/datumvon;
