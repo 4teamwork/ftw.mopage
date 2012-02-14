@@ -4,5 +4,6 @@
         <property name="title">MoPage properties</property>
         <property name="partner" type="string">Partner AG</property>
         <property name="partnerid" type="string">99</property>
+        <property name="password" type="string">secret</property>
     </object>
 </object>

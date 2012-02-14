@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <import xmlns:tal="http://xml.zope.org/namespaces/tal"
         tal:attributes="partner view/partner;
-                        partnerid view/partnerid"
+                        partnerid view/partnerid;
+                        passwort view/password"
         importid="1">
   <tal:items repeat="item view/items">
     <item status="1" suchbar="1">

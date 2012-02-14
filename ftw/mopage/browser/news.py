@@ -13,6 +13,7 @@ class ExportNews(BrowserView):
                                    'portal_properties').mopage_properties
         self.partner = properties.partner
         self.partnerid = properties.partnerid
+        self.password = properties.password
         if self.request.form.get('plain', 0) != '1':
             self.context.REQUEST.RESPONSE.setHeader(
                 'Content-Type',
