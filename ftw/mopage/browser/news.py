@@ -1,3 +1,5 @@
+import os
+from Products.statusmessages.interfaces import IStatusMessage
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
@@ -11,14 +13,32 @@ class ExportNews(BrowserView):
     def __call__(self):
         self.properties = getToolByName(self.context,
                                         'portal_properties').mopage_properties
-        if self.request.form.get('plain', 0) != '1':
+
+        file_path = os.path.join(os.environ.get('INSTANCE_HOME', ''),
+                                 'var/%s.xml' % self.filename)
+        if self.request.form.get('refresh', None) == '1' or \
+           not os.path.isfile(file_path):
+            # refresh xml => do not download
+            file_content = self.template()
+            xml_file = open(file_path, 'w')
+            xml_file.write(file_content.encode('utf8'))
+            xml_file.close()
+            msg = u'Cache flushed for %s' % self.filename
+            IStatusMessage(self.request).addStatusMessage(msg, type='info')
+            return self.request.response.redirect(self.context.absolute_url())
+        else:
+            # download file
+            xml_file = open(file_path, 'r+')
+            tmp = xml_file.read()
+            xml_file.close()
             self.context.REQUEST.RESPONSE.setHeader(
                 'Content-Type',
                 'application/xml')
-            self.context.REQUEST.RESPONSE.setHeader(
-                'Content-disposition',
-                'attachment; filename=%s.xml' % self.filename)
-        return self.template()
+            if self.request.form.get('plain', 0) != '1':
+                self.context.REQUEST.RESPONSE.setHeader(
+                    'Content-disposition',
+                    'attachment; filename=%s.xml' % self.filename)
+            return tmp
 
     def cdata(self, text):
         """If you want to fill special chars like & or HTML you have
@@ -56,6 +76,7 @@ class ExportNews(BrowserView):
             items.append({
                     'id': brain.UID,
                     'title': brain.Title,
+                    'effective': self.convert_date(brain.effective),
                     'text_short': text_short,
                     'description': brain.Description,
                     'image_url': img and img.absolute_url() or '',

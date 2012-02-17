@@ -20,6 +20,7 @@ class ExportEvents(ExportNews):
             items.append({
                     'id': brain.UID,
                     'title': brain.Title,
+                    'effective': self.convert_date(brain.effective),
                     'allday': self.is_allday(brain.start, brain.end),
                     'start': self.convert_date(brain.start),
                     'end': self.convert_date(brain.end),

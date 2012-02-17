@@ -9,9 +9,6 @@ class ExportGeoLocations(ExportNews):
     template = ViewPageTemplateFile('geolocations.xml')
 
     def items(self):
-        """Gets all orgunits from catalog and prepares the
-        attributes for the xml.
-        """
         catalog = getToolByName(self.context, 'portal_catalog')
         brains = catalog(portal_type='OrgUnit')
         items = []
@@ -26,6 +23,7 @@ class ExportGeoLocations(ExportNews):
                     'id': brain.UID,
                     'title': brain.Title,
                     'street': obj.getAddress(),
+                    'effective': self.convert_date(brain.effective),
                     'plz': obj.getZip(),
                     'place': obj.getCity(),
                     'country': 'ch',
