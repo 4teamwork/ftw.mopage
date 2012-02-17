@@ -42,6 +42,8 @@
                 tal:content="item/description">Leadtext der Seite</textlead>
       <url_bild tal:condition="item/image_url"
                 tal:content="item/image_url">http://path.to/image.jpg</url_bild>
+      <rubrik tal:repeat="rubrik item/rubriken"
+              tal:content="rubrik">Restaurant</rubrik>
       <oev tal:condition="item/anfahrt"
            tal:content="structure item/anfahrt">Busslinlie 5b Hatestelle Bergli</oev>
       <longitude tal:condition="item/longitude"

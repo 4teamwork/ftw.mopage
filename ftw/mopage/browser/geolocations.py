@@ -41,6 +41,8 @@ class ExportGeoLocations(ExportNews):
                     'fax': obj.getFax(),
                     'description': brain.Description,
                     'image_url': img and img.absolute_url() or '',
+                    'rubriken':  [rubrik.Title() for rubrik
+                                                 in obj.getClassification()],
                     'anfahrt': self.cdata(directions),
                     'url': brain.getURL(),
                     'longitude': '', # => where do i get this
