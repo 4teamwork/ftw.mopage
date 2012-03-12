@@ -13,7 +13,7 @@ class ExportEvents(ExportNews):
         attributes for the xml.
         """
         catalog = getToolByName(self.context, 'portal_catalog')
-        brains = catalog(portal_type='Event')
+        brains = catalog(portal_type='Event', review_state="published")
         items = []
         for brain in brains:
             obj = brain.getObject()

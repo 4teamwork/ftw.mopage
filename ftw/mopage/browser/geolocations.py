@@ -9,7 +9,7 @@ class ExportGeoLocations(ExportNews):
     template = ViewPageTemplateFile('geolocations.xml')
 
     def items(self):
-        catalog = getToolByName(self.context, 'portal_catalog')
+        catalog = getToolByName(self.context, 'portal_catalog', review_state="published")
         brains = catalog(portal_type='OrgUnit')
         items = []
         for brain in brains:
