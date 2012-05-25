@@ -1,8 +1,14 @@
 import os
+import re
+from DateTime import DateTime
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.Five.browser import BrowserView
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from Products.CMFCore.utils import getToolByName
+#from urlparse import urlparse, urljoin
+
+
+A_HREF_RE = re.compile(r'<a[^>]*?href="([^"]*)', re.IGNORECASE|re.DOTALL)
 
 
 class ExportNews(BrowserView):
@@ -46,6 +52,16 @@ class ExportNews(BrowserView):
         """
         return "<![CDATA[%s]]>" % text
 
+    def make_links_absolute(self, obj, text):
+        """Converts relative links to absolute.
+        """
+        matches = A_HREF_RE.findall(text)
+        for m in matches:
+            target = obj.restrictedTraverse(m, None) 
+            if target:
+                text = text.replace('href="%s"' % m, 'href="%s"' % target.absolute_url())
+        return text
+
     def convert_date(self, date):
         """Returns the date in format: 2011-2-15 12:55:34
         """
@@ -67,7 +83,8 @@ class ExportNews(BrowserView):
 
         catalog = getToolByName(self.context, 'portal_catalog')
         brains = catalog(portal_type='Paragraph', review_state="published",
-                         path={'query':self.properties.news_path, 'depth':1})
+                         path={'query':self.properties.news_path, 'depth':1},
+                         expires={'query':DateTime(), 'range':'min'})
 
         items = []
         for brain in brains:
@@ -81,7 +98,7 @@ class ExportNews(BrowserView):
                     'title': brain.Title,
                     'description': brain.Description,
                     'text_short': text_short,
-                    'text': self.cdata(obj.getText() or ' '),
+                    'text': self.cdata(self.make_links_absolute(obj, obj.getText()) or ' '),
                     'image_url': img and img.absolute_url() or '',
                     'categories': brain.Subject,
                     'url': brain.getURL(),

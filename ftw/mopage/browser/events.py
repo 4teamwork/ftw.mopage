@@ -25,7 +25,7 @@ class ExportEvents(ExportNews):
                     'start': self.convert_date(brain.start),
                     'end': self.convert_date(brain.end),
                     'place': '',#obj.getLocation(), => ist geolocation gemeint
-                    'text': self.cdata(obj.getText()),
+                    'text': self.cdata(self.make_links_absolute(obj, obj.getText())),
                     'categories': obj.getEventType(),
                     'description': brain.Description,
                     'image_url': '', # => no image in event

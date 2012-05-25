@@ -9,8 +9,8 @@ class ExportGeoLocations(ExportNews):
     template = ViewPageTemplateFile('geolocations.xml')
 
     def items(self):
-        catalog = getToolByName(self.context, 'portal_catalog', review_state="published")
-        brains = catalog(portal_type='OrgUnit')
+        catalog = getToolByName(self.context, 'portal_catalog')
+        brains = catalog(portal_type='OrgUnit', review_state="published")
         items = []
         for brain in brains:
             obj = brain.getObject()
@@ -19,7 +19,13 @@ class ExportGeoLocations(ExportNews):
                 opening = obj.getOpening_hours().replace('\n', '<br />')
             directions = obj.getDirections().replace('\n', '<br />')
             img = obj.getImage()
-            items.append({
+
+            latitude, longitude = obj.getRawGeolocation()
+
+            has_address = obj.getAddress() and obj.getZip() and obj.getCity()
+
+            if has_address or (latitude and longitude):
+                items.append({
                     'id': brain.UID,
                     'title': brain.Title,
                     'street': obj.getAddress(),
@@ -30,7 +36,7 @@ class ExportGeoLocations(ExportNews):
                     'categories': brain.Subject,
                     'phone': obj.getPhone_office(),
                     'email': obj.getEmail(),
-                    'opening': self.cdata(opening),
+                    'opening': self.cdata(self.make_links_absolute(obj,opening)),
                     'text_short': '', # => no text
                     'company': obj.getAddressTitle(),
                     'firstname': '', # => no firstname
@@ -41,9 +47,9 @@ class ExportGeoLocations(ExportNews):
                     'image_url': img and img.absolute_url() or '',
                     'rubriken':  [rubrik.Title() for rubrik
                                                  in obj.getClassification()],
-                    'anfahrt': self.cdata(directions),
+                    'anfahrt': self.cdata(self.make_links_absolute(obj,directions)),
                     'url': brain.getURL(),
-                    'longitude': '', # => where do i get this
-                    'latitude': '', # => where do i get this
+                    'longitude': longitude,
+                    'latitude': latitude,
                     })
         return items

@@ -8,6 +8,6 @@
         <property name="importid_geolocations" type="string">1</property>
         <property name="importid_news" type="string">1</property>
         <property name="importid_events" type="string">1</property>
-        <property name="news_path" type="string">/www.wetzikon.ch/platform/stadt/news</property>
+        <property name="news_path" type="string">/www.wetzikon.ch/platform/Politik/Gemeinderat/offentlichkeitsarbeit</property>
     </object>
 </object>
