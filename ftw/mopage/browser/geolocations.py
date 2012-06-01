@@ -29,7 +29,7 @@ class ExportGeoLocations(ExportNews):
                     'id': brain.UID,
                     'title': brain.Title,
                     'street': obj.getAddress(),
-                    'effective': self.convert_date(brain.effective),
+                    'modified': self.convert_date(brain.modified),
                     'plz': obj.getZip(),
                     'place': obj.getCity(),
                     'country': 'ch',

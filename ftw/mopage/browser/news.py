@@ -102,7 +102,7 @@ class ExportNews(BrowserView):
                     'image_url': img and img.absolute_url() or '',
                     'categories': brain.Subject,
                     'url': brain.getURL(),
-                    'effective': self.convert_date(brain.effective),
+                    'modified': self.convert_date(brain.modified),
                     'datumvon': self.convert_date(brain.effective),
                     'datumbis': self.convert_date(brain.expires)})
         return items

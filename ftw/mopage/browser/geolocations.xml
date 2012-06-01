@@ -6,7 +6,7 @@
                         passwort properties/password;
                         importid properties/importid_geolocations">
   <tal:items repeat="item view/items">
-    <item status="1" suchbar="1" tal:attributes="mutationsdatum item/effective">
+    <item status="1" suchbar="1" tal:attributes="mutationsdatum item/modified">
       <id tal:content="item/id">01</id>
       <titel tal:content="item/title">Steueramt</titel>
       <adresse tal:content="item/street">Sonnenstr. 12</adresse>
