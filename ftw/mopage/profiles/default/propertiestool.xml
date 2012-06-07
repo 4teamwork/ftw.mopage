@@ -2,12 +2,11 @@
 <object name="portal_properties">
     <object name="mopage_properties" meta_type="Plone Property Sheet">
         <property name="title">MoPage properties</property>
-        <property name="partner" type="string">Partner AG</property>
-        <property name="partnerid" type="string">99</property>
-        <property name="password" type="string">secret</property>
+        <property name="partner" type="string"></property>
+        <property name="partnerid" type="string"></property>
+        <property name="password" type="string"></property>
         <property name="importid_geolocations" type="string">1</property>
         <property name="importid_news" type="string">1</property>
         <property name="importid_events" type="string">1</property>
-        <property name="news_path" type="string">/www.wetzikon.ch/platform/Politik/Gemeinderat/offentlichkeitsarbeit</property>
     </object>
 </object>

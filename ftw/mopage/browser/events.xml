@@ -13,8 +13,8 @@
         <von tal:content="item/start">2011-08-06 00:00:00</von>
         <bis tal:content="item/end">2011-08-06 23:59:00</bis>
       </termin>
-      <referenzort tal:condition="item/place"
-                   tal:content="item/place">1234</referenzort>
+      <referenzort tal:condition="item/reference"
+                   tal:content="item/reference">1234</referenzort>
       <textmobile tal:condition="item/text"
                   tal:content="structure item/text">
         Das Event findet bei jeder Witterung statt.

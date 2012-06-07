@@ -8,7 +8,6 @@ setup(name='ftw.mopage',
       description="Provides moPage integration for Plone.",
       long_description=open("README.txt").read() + "\n" + \
           open("docs/HISTORY.txt").read(),
-      # Get more strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
       classifiers=[
         "Framework :: Plone",
         "Framework :: Zope2",
