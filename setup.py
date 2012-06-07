@@ -2,6 +2,10 @@ from setuptools import setup, find_packages
 
 version = '1.0'
 maintainer = 'Julian Infanger'
+tests_require = [
+    'ftw.testing',
+    'plone.app.testing',
+    ]
 
 setup(name='ftw.mopage',
       version=version,
@@ -28,6 +32,8 @@ setup(name='ftw.mopage',
       install_requires=[
         'setuptools',
         ],
+      tests_require=tests_require,
+      extras_require=dict(tests=tests_require),
       entry_points="""
       # -*- Entry points: -*-
       [z3c.autoinclude.plugin]
