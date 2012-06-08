@@ -77,7 +77,7 @@ class TestViews(MockTestCase):
                                name='mopage_events.xml')
         result = view()
 
-        file_ = open('/Users/elio_schmutz/Plone/eggs/var/events.xml', 'r')
+        file_ = open(os.path.join(self.file_path, 'events.xml') , 'r')
 
         self.assertTrue(isinstance(file_, file))
         self.assertTrue(file_.read(), result)
@@ -106,7 +106,7 @@ class TestViews(MockTestCase):
                                name='mopage_news.xml')
         result = view()
 
-        file_ = open('/Users/elio_schmutz/Plone/eggs/var/news.xml', 'r')
+        file_ = open(os.path.join(self.file_path, 'news.xml') , 'r')
 
         self.assertTrue(isinstance(file_, file))
         self.assertTrue(file_.read(), result)
@@ -135,8 +135,7 @@ class TestViews(MockTestCase):
                                name='mopage_geolocations.xml')
         result = view()
 
-        file_ = open(
-            '/Users/elio_schmutz/Plone/eggs/var/geolocations.xml', 'r')
+        file_ = open(os.path.join(self.file_path, 'geolocations.xml') , 'r')
 
         self.assertTrue(isinstance(file_, file))
         self.assertTrue(file_.read(), result)
