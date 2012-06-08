@@ -25,7 +25,7 @@ class IMopageBaseQueryProvider(Interface):
     """Adapter providing the query for mopage exports
     """
 
-    def get_query(self):
+    def get_query():
         """Return the catalogquery
         """
 
@@ -49,7 +49,7 @@ class IMopageXMLDataProvider(Interface):
     """Adapter provides data to export in xml
     """
 
-    def get_data(self):
+    def get_data():
         """ Return required data in a dict
         """
 
@@ -59,7 +59,7 @@ class IMopageGeolocationDataProvider(IMopageXMLDataProvider):
     mopage_geolocation.xml-view
     """
 
-    def get_data(self):
+    def get_data():
         """
         Needs to provide following keys in the dict:
 
@@ -95,7 +95,7 @@ class IMopageEventDataProvider(IMopageXMLDataProvider):
     mopage_event.xml-view
     """
 
-    def get_data(self):
+    def get_data():
         """
         Needs to provide following keys in the dict:
 
@@ -120,7 +120,7 @@ class IMopageNewsDataProvider(IMopageXMLDataProvider):
     mopage_news.xml-view
     """
 
-    def get_data(self):
+    def get_data():
         """
         Needs to provide following keys in the dict:
 

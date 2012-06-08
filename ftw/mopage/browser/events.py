@@ -1,10 +1,10 @@
-from ftw.mopage.browser.news import ExportNews
+from ftw.mopage.browser.base import BaseExport
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ftw.mopage.interfaces import \
     IMopageEventDataProvider, IMopageEventQueryProvider
 
 
-class ExportEvents(ExportNews):
+class ExportEvents(BaseExport):
 
     filename = 'events'
     template = ViewPageTemplateFile('events.xml')
