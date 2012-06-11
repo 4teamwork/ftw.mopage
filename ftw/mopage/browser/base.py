@@ -17,7 +17,7 @@ class BaseExport(BrowserView):
         self.properties = self.get_mopage_properties()
 
         file_path = self.get_file_path(
-            self.properties.get('export_dir'), self.filename)
+            self.properties.export_dir, self.filename)
 
         if self.request.form.get('refresh', None) == '1':
 

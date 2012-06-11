@@ -47,7 +47,7 @@
       <oev tal:condition="item/anfahrt"
            tal:content="structure item/anfahrt">Busslinlie 5b Hatestelle Bergli</oev>
       <longitude tal:condition="item/longitude"
-                 tal:content="item/longitudep">8.56235684</longitude>
+                 tal:content="item/longitude">8.56235684</longitude>
       <latitude tal:condition="item/latitude"
                 tal:content="item/latitude">47.5985655</latitude>
     </item>
