@@ -28,16 +28,15 @@ class TestViews(MockTestCase):
 
         self.expect(self.site.getPhysicalRoot()).result('/app/site')
 
-        self.mopage_prop = {
-            'partner': 'partner',
-            'partnerid': 'partnerid',
-            'password': 'password',
-            'importid_events': 'importid_events',
-            'importid_news': 'importid_news',
-            'importid_geolocations': 'importid_geolocations',
-            'export_dir': 'var',
-        }
-
+        self.mopage_prop = self.create_dummy(
+            partner='partner',
+            partnerid='partnerid',
+            password='password',
+            importid_events='importid_events',
+            importid_news='importid_news',
+            importid_geolocations='importid_geolocations',
+            export_dir='var',
+        )
         self.file_path = os.path.join(
             os.environ.get('INSTANCE_HOME', ''), 'var')
 
