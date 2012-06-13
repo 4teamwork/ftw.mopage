@@ -1,5 +1,6 @@
 from ftw.mopage.interfaces import IMopageEventLookup, IMopageNewsLookup, IMopageGeolocationLookup
 from zope.interface import implements
+from Products.CMFCore.utils import getToolByName
 
 
 class MopageBaseLookup(object):
@@ -10,10 +11,13 @@ class MopageBaseLookup(object):
         self.context = context
         self.request = request
 
-    def get_query(self):
-        """Return the query for the export
+
+    def get_brains(self):
+        """Return the brains for the export
         """
-        return {'object_provides': self.interface}
+        catalog = getToolByName(self.context, 'portal_catalog')
+
+        return catalog({'object_provides': self.interface})
 
 
 class MopageEventLookup(MopageBaseLookup):

@@ -25,7 +25,7 @@ class IMopageBaseLookup(Interface):
     """Adapter providing the query for mopage exports
     """
 
-    def get_query():
+    def get_brains():
         """Return the catalogquery
         """
 
