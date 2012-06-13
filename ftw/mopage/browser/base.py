@@ -10,7 +10,7 @@ class BaseExport(BrowserView):
     filename = None
     template = None
     data_provider = None
-    query_provider = None
+    lookup_provider = None
 
     def __call__(self):
 
@@ -90,12 +90,10 @@ class BaseExport(BrowserView):
         attributes for the xml.
         """
 
-        query_provider = getMultiAdapter(
-            (self.context, self.request), self.query_provider)
+        lookup_provider = getMultiAdapter(
+            (self.context, self.request), self.lookup_provider)
 
-        catalog = getToolByName(self.context, 'portal_catalog')
-
-        brains = catalog(query_provider.get_query())
+        brains = lookup_provider.get_brains()
 
         items = []
         for brain in brains:

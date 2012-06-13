@@ -1,8 +1,8 @@
-from ftw.mopage.interfaces import IMopageEventQueryProvider, IMopageNewsQueryProvider, IMopageGeolocationQueryProvider
+from ftw.mopage.interfaces import IMopageEventLookup, IMopageNewsLookup, IMopageGeolocationLookup
 from zope.interface import implements
 
 
-class BaseMopageQueryProvider(object):
+class MopageBaseLookup(object):
 
     interface = 'ftw.mopage.interfaces.IMopageExporter'
 
@@ -16,19 +16,19 @@ class BaseMopageQueryProvider(object):
         return {'object_provides': self.interface}
 
 
-class MopageEventQueryProvider(BaseMopageQueryProvider):
-    implements(IMopageEventQueryProvider)
+class MopageEventLookup(MopageBaseLookup):
+    implements(IMopageEventLookup)
 
     interface = 'ftw.mopage.interfaces.IMopageEvent'
 
 
-class MopageNewsQueryProvider(BaseMopageQueryProvider):
-    implements(IMopageNewsQueryProvider)
+class MopageNewsLookup(MopageBaseLookup):
+    implements(IMopageNewsLookup)
 
     interface = 'ftw.mopage.interfaces.IMopageNews'
 
 
-class MopageGeolocationQueryProvider(BaseMopageQueryProvider):
-    implements(IMopageGeolocationQueryProvider)
+class MopageGeolocationLookup(MopageBaseLookup):
+    implements(IMopageGeolocationLookup)
 
     interface = 'ftw.mopage.interfaces.IMopageGeolocation'

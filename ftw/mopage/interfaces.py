@@ -21,7 +21,7 @@ class IMopageNews(IMopageExporter):
     """
 
 
-class IMopageBaseQueryProvider(Interface):
+class IMopageBaseLookup(Interface):
     """Adapter providing the query for mopage exports
     """
 
@@ -30,17 +30,17 @@ class IMopageBaseQueryProvider(Interface):
         """
 
 
-class IMopageEventQueryProvider(IMopageBaseQueryProvider):
+class IMopageEventLookup(IMopageBaseLookup):
     """Adapter providing the query to export mopage events
     """
 
 
-class IMopageNewsQueryProvider(IMopageBaseQueryProvider):
+class IMopageNewsLookup(IMopageBaseLookup):
     """Adapter providing the query to export mopage news
     """
 
 
-class IMopageGeolocationQueryProvider(IMopageBaseQueryProvider):
+class IMopageGeolocationLookup(IMopageBaseLookup):
     """Adapter providing the query to export mopage geolocations
     """
 
