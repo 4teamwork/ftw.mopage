@@ -2,7 +2,7 @@ from zope.interface.verify import verifyClass
 from ftw.mopage.testing import FTWMOPAGE_ZCML_LAYER
 from ftw.testing import MockTestCase
 from ftw.mopage.interfaces import IMopageGeolocationQueryProvider
-from ftw.mopage.adapter import MopageGeolocationQueryProvider
+from ftw.mopage.query_provider MopageGeolocationQueryProvider
 from zope.component import getMultiAdapter
 
 

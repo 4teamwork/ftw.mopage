@@ -21,7 +21,7 @@
 <adapter
   for="*
        *"
-  factory=".adapter.MopageNewsQueryProvider"
+  factory=".query_provider.MopageNewsQueryProvider"
   provides=".interfaces.IMopageNewsQueryProvider"
  />
 
@@ -29,7 +29,7 @@
  <adapter
    for="*
         *"
-   factory=".adapter.MopageEventQueryProvider"
+   factory=".query_provider.MopageEventQueryProvider"
    provides=".interfaces.IMopageEventQueryProvider"
   />
 
@@ -37,8 +37,15 @@
   <adapter
     for="*
          *"
-    factory=".adapter.MopageGeolocationQueryProvider"
+    factory=".query_provider.MopageGeolocationQueryProvider"
     provides=".interfaces.IMopageGeolocationQueryProvider"
    />
+
+<!-- News data validator -->
+<adapter
+ for="* * .interfaces.IMopageNewsDataProvider"
+ factory=".data_validator.MopageNewsDataValidator"
+ provides=".interfaces.IMopageNewsDataValidator"
+/>
 
 </configure>

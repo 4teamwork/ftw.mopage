@@ -2,7 +2,7 @@ from zope.interface.verify import verifyClass
 from ftw.mopage.testing import FTWMOPAGE_ZCML_LAYER
 from ftw.testing import MockTestCase
 from ftw.mopage.interfaces import IMopageEventQueryProvider
-from ftw.mopage.adapter import MopageEventQueryProvider
+from ftw.mopage.query_provider MopageEventQueryProvider
 from zope.component import getMultiAdapter
 
 

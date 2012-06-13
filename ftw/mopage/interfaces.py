@@ -1,6 +1,30 @@
 from zope.interface import Interface
 
 
+class IMopageXMLDataValidator(Interface):
+    """Validates the data received from a MopageXMLDataProvider-Object
+    """
+
+    def validate():
+        """Start validation
+        """
+
+
+class IMopageGeolocationDataValidator(IMopageXMLDataValidator):
+    """Adapter validates data to export in mopage_geolocations.xml
+    """
+
+
+class IMopageEventDataValidator(IMopageXMLDataValidator):
+    """Adapter validates data to export in mopage_events.xml
+    """
+
+
+class IMopageNewsDataValidator(IMopageXMLDataValidator):
+    """Adapter validates data to export in mopage_news.xml
+    """
+
+
 class IMopageExporter(Interface):
     """Markerinterface for Exportable objects with ftw.mopage
     """

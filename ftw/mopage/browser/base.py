@@ -3,14 +3,16 @@ from Products.statusmessages.interfaces import IStatusMessage
 from Products.Five.browser import BrowserView
 from Products.CMFCore.utils import getToolByName
 from zope.component import getMultiAdapter
-
+from ftw.mopage.data_validator import MopageValidationError
 
 class BaseExport(BrowserView):
 
     filename = None
     template = None
     data_provider = None
+    data_validator = None
     query_provider = None
+
 
     def __call__(self):
 
@@ -103,11 +105,18 @@ class BaseExport(BrowserView):
             data_provider = getMultiAdapter(
                 (obj, self.request), self.data_provider)
 
-            data = data_provider.get_data()
+            data_validator = getMultiAdapter(
+                (
+                    self.context,
+                    self.request,
+                    data_provider
+                ),
+                self.data_validator)
 
-            if not data:
-                continue
-
-            items.append(data)
+            try:
+                data_validator.validate()
+            except MopageValidationError:
+                import pdb; pdb.set_trace( )
+            items.append(data_provider.get_data())
 
         return items
