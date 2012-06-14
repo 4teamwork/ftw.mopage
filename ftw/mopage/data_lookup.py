@@ -1,4 +1,5 @@
-from ftw.mopage.interfaces import IMopageEventLookup, IMopageNewsLookup, IMopageGeolocationLookup
+from ftw.mopage.interfaces import IMopageEventLookup, IMopageNewsLookup, \
+    IMopageGeolocationLookup
 from zope.interface import implements
 from Products.CMFCore.utils import getToolByName
 
@@ -10,7 +11,6 @@ class MopageBaseLookup(object):
     def __init__(self, context, request):
         self.context = context
         self.request = request
-
 
     def get_brains(self):
         """Return the brains for the export

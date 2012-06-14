@@ -1,4 +1,5 @@
-from ftw.mopage.interfaces import IMopageGeolocationDataProvider, IMopageNewsDataProvider, IMopageEventDataProvider
+from ftw.mopage.interfaces import IMopageGeolocationDataProvider, \
+    IMopageNewsDataProvider, IMopageEventDataProvider
 from zope.interface import implements
 
 

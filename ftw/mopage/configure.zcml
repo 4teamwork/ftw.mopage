@@ -21,7 +21,7 @@
 <adapter
   for="*
        *"
-  factory=".adapter.MopageNewsLookup"
+  factory=".data_lookup.MopageNewsLookup"
   provides=".interfaces.IMopageNewsLookup"
  />
 
@@ -29,7 +29,7 @@
  <adapter
    for="*
         *"
-   factory=".adapter.MopageEventLookup"
+   factory=".data_lookup.MopageEventLookup"
    provides=".interfaces.IMopageEventLookup"
   />
 
@@ -37,7 +37,7 @@
   <adapter
     for="*
          *"
-    factory=".adapter.MopageGeolocationLookup"
+    factory=".data_lookup.MopageGeolocationLookup"
     provides=".interfaces.IMopageGeolocationLookup"
    />
 
@@ -46,6 +46,20 @@
  for="* * .interfaces.IMopageNewsDataProvider"
  factory=".data_validator.MopageNewsDataValidator"
  provides=".interfaces.IMopageNewsDataValidator"
+/>
+
+<!-- Event data validator -->
+<adapter
+ for="* * .interfaces.IMopageEventDataProvider"
+ factory=".data_validator.MopageEventDataValidator"
+ provides=".interfaces.IMopageEventDataValidator"
+/>
+
+<!-- Geolocation data validator -->
+<adapter
+ for="* * .interfaces.IMopageGeolocationDataProvider"
+ factory=".data_validator.MopageGeolocationDataValidator"
+ provides=".interfaces.IMopageGeolocationDataValidator"
 />
 
 </configure>
