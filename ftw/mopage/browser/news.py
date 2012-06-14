@@ -1,6 +1,6 @@
 from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
 from ftw.mopage.interfaces import \
-    IMopageNewsDataProvider, IMopageNewsDataValidator, IMopageNewsQueryProvider
+    IMopageNewsDataProvider, IMopageNewsDataValidator, IMopageNewsLookup
 from ftw.mopage.browser.base import BaseExport
 
 
@@ -10,5 +10,4 @@ class ExportNews(BaseExport):
     template = ViewPageTemplateFile('news.xml')
     data_provider = IMopageNewsDataProvider
     data_validator = IMopageNewsDataValidator
-    query_provider = IMopageNewsQueryProvider
-
+    lookup_provider = IMopageNewsLookup

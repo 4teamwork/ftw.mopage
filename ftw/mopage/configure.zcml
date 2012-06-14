@@ -21,24 +21,24 @@
 <adapter
   for="*
        *"
-  factory=".query_provider.MopageNewsQueryProvider"
-  provides=".interfaces.IMopageNewsQueryProvider"
+  factory=".adapter.MopageNewsLookup"
+  provides=".interfaces.IMopageNewsLookup"
  />
 
  <!-- Event query provider -->
  <adapter
    for="*
         *"
-   factory=".query_provider.MopageEventQueryProvider"
-   provides=".interfaces.IMopageEventQueryProvider"
+   factory=".adapter.MopageEventLookup"
+   provides=".interfaces.IMopageEventLookup"
   />
 
   <!-- Geolocation query provider -->
   <adapter
     for="*
          *"
-    factory=".query_provider.MopageGeolocationQueryProvider"
-    provides=".interfaces.IMopageGeolocationQueryProvider"
+    factory=".adapter.MopageGeolocationLookup"
+    provides=".interfaces.IMopageGeolocationLookup"
    />
 
 <!-- News data validator -->
