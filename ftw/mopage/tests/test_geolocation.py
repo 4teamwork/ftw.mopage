@@ -11,20 +11,6 @@ class TestGeolocation(MockTestCase):
 
     layer = FTWMOPAGE_ZCML_LAYER
 
-    def test_implements_interface(self):
-
-        self.assertTrue(IMopageGeolocationLookup.implementedBy(
-            MopageGeolocationLookup))
-
-        verifyClass(IMopageGeolocationLookup,
-            MopageGeolocationLookup)
-
-    def test_component_registered(self):
-
-        obj = getMultiAdapter(
-            (object(), object()), IMopageGeolocationLookup)
-        self.assertEquals(obj.__class__, MopageGeolocationLookup)
-
     def test_query(self):
 
         brains = ['brain1', 'brain2']

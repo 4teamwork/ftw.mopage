@@ -1,11 +1,13 @@
 from xml.dom import minidom
 from Products.CMFCore.utils import getToolByName
+from ftw.mopage.interfaces import IMopageGeolocationXMLWriter, \
+    IMopageNewsXMLWriter, IMopageEventXMLWriter
+from zope.interface import implements
 
 
 class BaseMopageXMLWriter(object):
     """ Used to generate a mopage xml
     """
-
 
     def __init__(self, context, request):
         self.context = context
@@ -22,7 +24,6 @@ class BaseMopageXMLWriter(object):
 
         self.set_base_xml()
         self.data = data
-
 
     def generate_header(self):
 
@@ -65,6 +66,7 @@ class BaseMopageXMLWriter(object):
 
 
 class MopageGeolocationXMLWriter(BaseMopageXMLWriter):
+    implements(IMopageGeolocationXMLWriter)
 
     def generate_xml(self, data):
         super(MopageGeolocationXMLWriter, self).generate_xml(data)
@@ -120,6 +122,7 @@ class MopageGeolocationXMLWriter(BaseMopageXMLWriter):
 
 
 class MopageNewsXMLWriter(BaseMopageXMLWriter):
+    implements(IMopageNewsXMLWriter)
 
     def generate_xml(self, data):
         super(MopageNewsXMLWriter, self).generate_xml(data)
@@ -131,6 +134,8 @@ class MopageNewsXMLWriter(BaseMopageXMLWriter):
 
             xml_node = self.get_item_node()
             xml_node.setAttribute('datumvon', self.data.get('datumvon'))
+            xml_node.setAttribute(
+                'mutationsdatum', self.data.get('mutationsdatum'))
 
             self.create_node('id', xml_node, self.data.get('id'))
             self.create_node('titel', xml_node, self.data.get('titel'))
@@ -151,6 +156,7 @@ class MopageNewsXMLWriter(BaseMopageXMLWriter):
 
 
 class MopageEventXMLWriter(BaseMopageXMLWriter):
+    implements(IMopageEventXMLWriter)
 
     def generate_xml(self, data):
         super(MopageEventXMLWriter, self).generate_xml(data)

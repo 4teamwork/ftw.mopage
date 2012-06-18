@@ -100,7 +100,7 @@ class BaseMopageDataValidator(object):
         for prop in self.attributes:
 
             required = prop('required')
-            available = prop in self.data.keys()
+            available = prop('name') in self.data.keys()
             has_data = self.data.get(prop)
 
             if required and not available and not has_data:
@@ -133,29 +133,24 @@ class BaseMopageDataValidator(object):
 
         errors = []
 
-        def length_validator(value, length):
+        def length_validator(value, length, name):
             if not len(value) <= length:
-                errors.append(('%s: max: %s') % (prop('name'), prop('length')))
+                errors.append(('%s: max: %s') % (name, length))
 
         for prop in self.attributes:
             value = self.data.get(prop('name'))
 
             if isinstance(value, (str, unicode)):
-                invalid = length_validator(value, prop('length'))
-                if invalid is not None:
-                    return invalid
+                length_validator(value, prop('length'), prop('name'))
 
             if isinstance(value, (list, tuple, set)):
                 subprop = prop('elements')
                 for subvalue in value:
-                    invalid = length_validator(subvalue, subprop('length'))
-                    if invalid is not None:
-                        return invalid
+                    length_validator(subvalue, subprop('length'), prop('name'))
 
         if errors:
-            for error in errors:
-                return ('Text is too long in following attributes: %s.') % (
-                    ', '.join(errors))
+            return ('Text is too long in following attributes: %s.') % (
+                ', '.join(errors))
 
     def validate_unused_attributes(self):
         """ Check the data for unused attributes.
@@ -205,6 +200,7 @@ class MopageNewsDataValidator(BaseMopageDataValidator):
             Property('titel', True, str, 100),
             Property('textmobile', True, str, 10000),
             Property('datumvon', True, str, 60),
+            Property('mutationsdatum', True, str, 100),
             Property('textlead', False, str, 1000),
             Property('url_bild', False, str, 225),
             Property('rubrik', False, list, 0,

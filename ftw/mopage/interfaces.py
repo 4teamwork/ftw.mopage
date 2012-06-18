@@ -5,7 +5,7 @@ class IMopageXMLDataValidator(Interface):
     """Validates the data received from a MopageXMLDataProvider-Object
     """
 
-    def validate():
+    def validate(data):
         """Start validation
         """
 
@@ -26,7 +26,7 @@ class IMopageNewsDataValidator(IMopageXMLDataValidator):
 
 class IMopageXMLWriter(Interface):
 
-    def generate_xml():
+    def generate_xml(data):
         """ Start generating the xml and return it as string
         """
 

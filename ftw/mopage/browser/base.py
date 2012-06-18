@@ -80,7 +80,7 @@ class BaseExport(BrowserView):
     def get_xml(self):
 
         xml_writer = getMultiAdapter(
-            (self.context, self.request), self.xml_wirter)
+            (self.context, self.request), self.xml_writer)
 
         return xml_writer.generate_xml(self.get_data)
 
@@ -107,7 +107,7 @@ class BaseExport(BrowserView):
                 (
                     self.context,
                     self.request,
-                    data_provider
+                    data_provider,
                 ),
                 self.data_validator)
 

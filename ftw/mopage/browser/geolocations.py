@@ -1,13 +1,11 @@
 from ftw.mopage.browser.base import BaseExport
-from Products.Five.browser.pagetemplatefile import ViewPageTemplateFile
-from ftw.mopage.interfaces import IMopageGeolocationDataProvider, \
-    IMopageGeolocationDataValidator,IMopageGeolocationLookup
+from ftw.mopage import interfaces as i
 
 
 class ExportGeoLocations(BaseExport):
 
     filename = 'geolocations'
-    template = ViewPageTemplateFile('geolocations.xml')
-    data_provider = IMopageGeolocationDataProvider
-    data_validator = IMopageGeolocationDataValidator
-    lookup_provider = IMopageGeolocationLookup
+    data_provider = i.IMopageGeolocationDataProvider
+    data_validator = i.IMopageGeolocationDataValidator
+    lookup_provider = i.IMopageGeolocationLookup
+    xml_writer = i.IMopageGeolocationXMLWriter

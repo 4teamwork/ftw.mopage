@@ -11,22 +11,6 @@ class TestEvents(MockTestCase):
 
     layer = FTWMOPAGE_ZCML_LAYER
 
-    def test_implements_interface(self):
-
-        self.replay()
-
-        self.assertTrue(IMopageEventLookup.implementedBy(
-            MopageEventLookup))
-
-        verifyClass(IMopageEventLookup, MopageEventLookup)
-
-    def test_component_registered(self):
-
-        self.replay()
-
-        obj = getMultiAdapter((object(), object()), IMopageEventLookup)
-        self.assertEquals(obj.__class__, MopageEventLookup)
-
     def test_query(self):
 
         brains = ['brain1', 'brain2']
