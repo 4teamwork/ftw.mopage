@@ -39,6 +39,10 @@ class BaseMopageDataValidator(object):
 
         """
         self.data = data
+
+        if not self.data:
+            return
+
         self.attributes = self.get_attributes()
 
         queue = self.get_validation_queue()
@@ -200,9 +204,11 @@ class MopageNewsDataValidator(BaseMopageDataValidator):
             Property('id', True, str, 50),
             Property('titel', True, str, 100),
             Property('textmobile', True, str, 10000),
+            Property('datumvon', True, str, 60),
             Property('textlead', False, str, 1000),
             Property('url_bild', False, str, 225),
-            Property('rubrik', False, str, 100),
+            Property('rubrik', False, list, 0,
+                elements=Property('', False, str, 100)),
             Property('text', False, str, 30000),
             Property('url_web', False, str, 1000),
             Property('url_mobile', False, str, 1000),
@@ -220,6 +226,7 @@ class MopageGeolocationDataValidator(BaseMopageDataValidator):
             Property('plz', True, str, 50),
             Property('ort', True, str, 255),
             Property('land_iso', True, str, 2),
+            Property('mutationsdatum', True, str, 100),
             Property('rubrik', False, list, 0,
                 elements=Property('', False, str, 100)),
             Property('telefon1', False, str, 255),

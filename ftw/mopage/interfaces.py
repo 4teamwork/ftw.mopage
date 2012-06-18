@@ -24,6 +24,25 @@ class IMopageNewsDataValidator(IMopageXMLDataValidator):
     """Adapter validates data to export in mopage_news.xml
     """
 
+class IMopageXMLWriter(Interface):
+
+    def generate_xml():
+        """ Start generating the xml and return it as string
+        """
+
+class IMopageGeolocationXMLWriter(IMopageXMLWriter):
+    """Adapter generate xml for geolocation export
+    """
+
+
+class IMopageEventXMLWriter(IMopageXMLWriter):
+    """Adapter generate xml for event export
+    """
+
+
+class IMopageNewsXMLWriter(IMopageXMLWriter):
+    """Adapter generate xml for news export
+    """
 
 class IMopageExporter(Interface):
     """Markerinterface for Exportable objects with ftw.mopage

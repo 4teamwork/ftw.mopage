@@ -1,7 +1,6 @@
 import os
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.Five.browser import BrowserView
-from Products.CMFCore.utils import getToolByName
 from zope.component import getMultiAdapter
 
 
@@ -14,8 +13,6 @@ class BaseExport(BrowserView):
     lookup_provider = None
 
     def __call__(self):
-
-        self.properties = self.get_mopage_properties()
 
         file_path = self.get_file_path(
             self.properties.export_dir, self.filename)
@@ -49,7 +46,8 @@ class BaseExport(BrowserView):
     def refresh(self, file_path):
         """ Refresh or create the xml file
         """
-        file_content = self.template()
+
+        file_content = self.get_xml()
         xml_file = open(file_path, 'w')
         xml_file.write(file_content.encode('utf8'))
         xml_file.close()
@@ -79,14 +77,14 @@ class BaseExport(BrowserView):
 
         return tmp
 
-    def get_mopage_properties(self):
-        """ Return the mopage properties from the portal_properties
-        """
-        properties = getToolByName(self.context, 'portal_properties')
+    def get_xml(self):
 
-        return properties.mopage_properties
+        xml_writer = getMultiAdapter(
+            (self.context, self.request), self.xml_wirter)
 
-    def items(self):
+        return xml_writer.generate_xml(self.get_data)
+
+    def get_data(self):
         """Gets the news from catalog and prepares the
         attributes for the xml.
         """
@@ -96,9 +94,10 @@ class BaseExport(BrowserView):
 
         brains = lookup_provider.get_brains()
 
-        items = []
+        data = []
         for brain in brains:
             obj = brain.getObject()
+
             data_provider = getMultiAdapter(
                 (obj, self.request), self.data_provider)
 
@@ -114,6 +113,6 @@ class BaseExport(BrowserView):
 
             data_validator.validate(data)
 
-            items.append(data_provider.get_data())
+            data.append(data_provider.get_data())
 
-        return items
+        return data

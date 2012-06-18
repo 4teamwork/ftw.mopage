@@ -5,27 +5,25 @@
                         partnerid properties/partnerid;
                         passwort properties/password;
                         importid properties/importid_events">
+                        
   <tal:items repeat="item view/items">
-    <item status="1" suchbar="1" tal:attributes="mutationsdatum item/modified">
-      <id tal:content="item/id">01</id>
-      <titel tal:content="item/title">Titel des Events</titel>
-      <termin tal:attributes="allday python:item['allday'] and 1 or None">
-        <von tal:content="item/start">2011-08-06 00:00:00</von>
-        <bis tal:content="item/end">2011-08-06 23:59:00</bis>
+    <item status="1" suchbar="1">
+
+      <id tal:content="item/id" />
+      <titel tal:content="item/title" />
+      <termin tal:attributes="allday item/allday">
+        <von tal:content="item/von" />
+        <bis tal:content="item/bis" />
       </termin>
-      <referenzort tal:condition="item/reference"
-                   tal:content="item/reference">1234</referenzort>
-      <textmobile tal:condition="item/text"
-                  tal:content="structure item/text">
-        Das Event findet bei jeder Witterung statt.
-      </textmobile>
-      <tal:categories repeat="category item/categories">
-        <rubrik tal:content="category">Kultur</rubrik>
-      </tal:categories>
-      <textlead tal:condition="item/description"
-                tal:content="item/description">
-        Wir laden euch herzlich ein!
-      </textlead>
+      <referenzort tal:condition="item/referenzort" tal:content="item/referenzort" />
+      <textmobile tal:condition="item/textmobile" tal:content="structure item/textmobile" />
+      
+      <tal:rubrik repeat="rubrik item/rubrik">
+        <rubrik tal:content="rubrik" />
+      </tal:rubrik>
+      
+      <textlead tal:condition="item/textlead" tal:content="item/textlead" />
+      
        <url_bild tal:condition="item/image_url"
                 tal:content="item/image_url">http://path.to/image.jpg</url_bild>
       <url_web tal:content="item/url">http://www.derlink.ch</url_web>

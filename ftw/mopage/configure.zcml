@@ -62,4 +62,25 @@
  provides=".interfaces.IMopageGeolocationDataValidator"
 />
 
+<!-- News xml wirter -->
+<adapter
+ for="* * .interfaces.IMopageNewsDataProvider"
+ factory=".xml_wirter.MopageNewsXMLWriter"
+ provides=".interfaces.IMopageNewsXMLWriter"
+/>
+
+<!-- Event data validator -->
+<adapter
+ for="* * .interfaces.IMopageEventDataProvider"
+ factory=".xml_writer.MopageEventXMLWriter"
+ provides=".interfaces.IMopageEventXMLWriter"
+/>
+
+<!-- Geolocation data validator -->
+<adapter
+ for="* * .interfaces.IMopageGeolocationDataProvider"
+ factory=".xml_writer.MopageGeolocationXMLWriter"
+ provides=".interfaces.IMopageGeolocationXMLWriter"
+/>
+
 </configure>
