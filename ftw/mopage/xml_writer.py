@@ -40,7 +40,8 @@ class BaseMopageXMLWriter(object):
         self.xml.appendChild(header)
 
     def create_node(
-        self, tag_name, parent_node, content='', allow_empty=False, **kwargs):
+        self, tag_name, parent_node, content='', allow_empty=False, **kwargs
+    ):
         """ Create a new minidom node
         """
 
@@ -50,17 +51,30 @@ class BaseMopageXMLWriter(object):
         node = self.xml.createElement(tag_name)
 
         for key, value in kwargs.items():
-            node.setAttribute(key, value)
+
+            node.setAttribute(key, self.convert_to_string(value))
+
+        node.appendChild(self.xml.createTextNode(
+            self.convert_to_string(content)))
 
         parent_node.appendChild(node)
 
         return node
 
+    def convert_to_string(self, value):
+
+        if isinstance(value, unicode):
+            value = value.encode('utf8')
+        elif isinstance(value, (int, float)):
+            value = str(value)
+
+        return value
+
     def get_item_node(self):
 
-        item = self.createElement('item')
-        item.setAttribute('suchbar', 1)
-        item.setAttribute('status', 1)
+        item = self.xml.createElement('item')
+        item.setAttribute('suchbar', '1')
+        item.setAttribute('status', '1')
 
         return item
 
@@ -78,45 +92,44 @@ class MopageGeolocationXMLWriter(BaseMopageXMLWriter):
 
             xml_node = self.get_item_node()
             xml_node.setAttribute(
-                'mutationsdatum', self.data.get('mutationsdatum'))
-
-            self.create_node('id', xml_node, self.data.get('id'))
-            self.create_node('titel', xml_node, self.data.get('titel'))
-            self.create_node('adresse', xml_node, self.data.get('adresse'))
-            self.create_node('plz', xml_node, self.data.get('plz'))
-            self.create_node('ort', xml_node, self.data.get('ort'))
-            self.create_node('land_iso', xml_node, self.data.get('land_iso'))
-            for rubrik in self.data.get('rubrik'):
+                'mutationsdatum', item.get('mutationsdatum'))
+            self.create_node('id', xml_node, item.get('id'))
+            self.create_node('titel', xml_node, item.get('titel'))
+            self.create_node('adresse', xml_node, item.get('adresse'))
+            self.create_node('plz', xml_node, item.get('plz'))
+            self.create_node('ort', xml_node, item.get('ort'))
+            self.create_node('land_iso', xml_node, item.get('land_iso'))
+            for rubrik in item.get('rubrik', []):
                 self.create_node('rubrik', xml_node, rubrik)
-            self.create_node('telefon1', xml_node, self.data.get('telefon1'))
-            self.create_node('email', xml_node, self.data.get('email'))
+            self.create_node('telefon1', xml_node, item.get('telefon1'))
+            self.create_node('email', xml_node, item.get('email'))
             self.create_node(
-                'oeffnungszeiten', xml_node, self.data.get('oeffnungszeiten'))
+                'oeffnungszeiten', xml_node, item.get('oeffnungszeiten'))
             self.create_node(
-                'textmobile', xml_node, self.data.get('textmobile'))
-            self.create_node('url_web', xml_node, self.data.get('url_web'))
+                'textmobile', xml_node, item.get('textmobile'))
+            self.create_node('url_web', xml_node, item.get('url_web'))
             self.create_node(
-                'url_mobile', xml_node, self.data.get('url_mobile'))
-            self.create_node('firma', xml_node, self.data.get('firma'))
-            self.create_node('vorname', xml_node, self.data.get('vorname'))
-            self.create_node('name', xml_node, self.data.get('name'))
-            self.create_node('sex', xml_node, self.data.get('sex'))
-            self.create_node('abteilung', xml_node, self.data.get('abteilung'))
-            self.create_node('telefon2', xml_node, self.data.get('telefon2'))
-            self.create_node('telefon3', xml_node, self.data.get('telefon3'))
-            self.create_node('mobile', xml_node, self.data.get('mobile'))
-            self.create_node('fax', xml_node, self.data.get('fax'))
+                'url_mobile', xml_node, item.get('url_mobile'))
+            self.create_node('firma', xml_node, item.get('firma'))
+            self.create_node('vorname', xml_node, item.get('vorname'))
+            self.create_node('name', xml_node, item.get('name'))
+            self.create_node('sex', xml_node, item.get('sex'))
+            self.create_node('abteilung', xml_node, item.get('abteilung'))
+            self.create_node('telefon2', xml_node, item.get('telefon2'))
+            self.create_node('telefon3', xml_node, item.get('telefon3'))
+            self.create_node('mobile', xml_node, item.get('mobile'))
+            self.create_node('fax', xml_node, item.get('fax'))
             self.create_node(
-                'adresse_zusatz', xml_node, self.data.get('adresse_zusatz'))
+                'adresse_zusatz', xml_node, item.get('adresse_zusatz'))
             self.create_node('land', xml_node, 'ch')
-            self.create_node('textlead', xml_node, self.data.get('textlead'))
-            self.create_node('url_bild', xml_node, self.data.get('url_bild'))
-            self.create_node('oev', xml_node, self.data.get('oev'))
-            self.create_node('longitude', xml_node, self.data.get('longitude'))
-            self.create_node('latitude', xml_node, self.data.get('latitude'))
-            self.create_node('text', xml_node, self.data.get('text'))
+            self.create_node('textlead', xml_node, item.get('textlead'))
+            self.create_node('url_bild', xml_node, item.get('url_bild'))
+            self.create_node('oev', xml_node, item.get('oev'))
+            self.create_node('longitude', xml_node, item.get('longitude'))
+            self.create_node('latitude', xml_node, item.get('latitude'))
+            self.create_node('text', xml_node, item.get('text'))
 
-            self.xml.appendChild(xml_node)
+            self.xml.firstChild.appendChild(xml_node)
 
         return self.xml.toxml()
 
@@ -133,24 +146,24 @@ class MopageNewsXMLWriter(BaseMopageXMLWriter):
         for item in self.data:
 
             xml_node = self.get_item_node()
-            xml_node.setAttribute('datumvon', self.data.get('datumvon'))
+            xml_node.setAttribute('datumvon', item.get('datumvon'))
             xml_node.setAttribute(
-                'mutationsdatum', self.data.get('mutationsdatum'))
+                'mutationsdatum', item.get('mutationsdatum'))
 
-            self.create_node('id', xml_node, self.data.get('id'))
-            self.create_node('titel', xml_node, self.data.get('titel'))
+            self.create_node('id', xml_node, item.get('id'))
+            self.create_node('titel', xml_node, item.get('titel'))
             self.create_node(
-                'textmobile', xml_node, self.data.get('textmobile'))
-            self.create_node('textlead', xml_node, self.data.get('textlead'))
-            self.create_node('url_bild', xml_node, self.data.get('url_bild'))
-            for rubrik in self.data.get('rubrik'):
+                'textmobile', xml_node, item.get('textmobile'))
+            self.create_node('textlead', xml_node, item.get('textlead'))
+            self.create_node('url_bild', xml_node, item.get('url_bild'))
+            for rubrik in item.get('rubrik', []):
                 self.create_node('rubrik', xml_node, rubrik)
-            self.create_node('text', xml_node, self.data.get('text'))
-            self.create_node('url_web', xml_node, self.data.get('url_web'))
+            self.create_node('text', xml_node, item.get('text'))
+            self.create_node('url_web', xml_node, item.get('url_web'))
             self.create_node(
-                'url_mobile', xml_node, self.data.get('url_mobile'))
+                'url_mobile', xml_node, item.get('url_mobile'))
 
-            self.xml.appendChild(xml_node)
+            self.xml.firstChild.appendChild(xml_node)
 
         return self.xml.toxml()
 
@@ -168,26 +181,26 @@ class MopageEventXMLWriter(BaseMopageXMLWriter):
 
             xml_node = self.get_item_node()
 
-            self.create_node('id', xml_node, self.data.get('id'))
-            self.create_node('titel', xml_node, self.data.get('titel'))
+            self.create_node('id', xml_node, item.get('id'))
+            self.create_node('titel', xml_node, item.get('titel'))
             termin = self.create_node('termin', xml_node, allow_empty=True)
-            termin.setAttribute('allday', self.data.get('allday'))
-            self.create_node('von', termin, self.data.get('von'))
-            self.create_node('bis', termin, self.data.get('bis'))
+            termin.setAttribute('allday', item.get('allday'))
+            self.create_node('von', termin, item.get('von'))
+            self.create_node('bis', termin, item.get('bis'))
             xml_node.appendChild(termin)
             self.create_node(
-                'referenzort', xml_node, self.data.get('referenzort'))
+                'referenzort', xml_node, item.get('referenzort'))
             self.create_node(
-                'textmobile', xml_node, self.data.get('textmobile'))
-            for rubrik in self.data.get('rubrik'):
+                'textmobile', xml_node, item.get('textmobile'))
+            for rubrik in item.get('rubrik', []):
                 self.create_node('rubrik', xml_node, rubrik)
-            self.create_node('textlead', xml_node, self.data.get('textlead'))
-            self.create_node('url_bild', xml_node, self.data.get('url_bild'))
-            self.create_node('url_web', xml_node, self.data.get('url_web'))
+            self.create_node('textlead', xml_node, item.get('textlead'))
+            self.create_node('url_bild', xml_node, item.get('url_bild'))
+            self.create_node('url_web', xml_node, item.get('url_web'))
             self.create_node(
-                'url_mobile', xml_node, self.data.get('url_mobile'))
-            self.create_node('text', xml_node, self.data.get('text'))
+                'url_mobile', xml_node, item.get('url_mobile'))
+            self.create_node('text', xml_node, item.get('text'))
 
-            self.xml.appendChild(xml_node)
+            self.xml.firstChild.appendChild(xml_node)
 
         return self.xml.toxml()

@@ -1,9 +1,167 @@
+# coding=UTF-8
 from ftw.testing import MockTestCase
 from ftw.mopage import data_validator
 from mocker import ANY
+from ftw.mopage.testing import FTWMOPAGE_ZCML_LAYER
+
+
+class TestGeolocationValidator(MockTestCase):
+
+    layer = FTWMOPAGE_ZCML_LAYER
+
+    def setUp(self):
+
+        self.request = self.stub_request()
+        self.context = self.stub()
+        self.data_provider = self.stub()
+        self.expect(
+            self.data_provider.context.absolute_url()).result('url_to_obj')
+
+        self.data_validator = self.mocker.patch(
+            data_validator.MopageGeolocationDataValidator(
+                self.context, self.request, self.data_provider))
+
+    def test_validate_geolocation_ok(self):
+
+        data = {
+            'id': 'äxx',
+            'titel': 'xxx',
+            'adresse': 'xxx',
+            'plz': 'xxx',
+            'ort': 'xxx',
+            'land_iso': 'xx',
+            'mutationsdatum': 'xxx',
+        }
+
+        self.replay()
+
+        result = self.data_validator.validate(data)
+
+        self.assertEquals(result, None)
+
+    def test_validate_geolocation_error(self):
+
+        data = {
+            'id': 'äxx',
+            'titel': 'xxx',
+            'adresse': 'xxx',
+            'plz': 'xxx',
+            'ort': 'xxx',
+            'url_bild': ['xxx'],
+            'url_web': "x"*500,
+        }
+
+        self.replay()
+
+        self.assertRaises(
+            data_validator.MopageValidationError,
+            self.data_validator.validate,
+            data)
+
+
+class TestEventValidator(MockTestCase):
+
+    layer = FTWMOPAGE_ZCML_LAYER
+
+    def setUp(self):
+
+        self.request = self.stub_request()
+        self.context = self.stub()
+        self.data_provider = self.stub()
+        self.expect(
+            self.data_provider.context.absolute_url()).result('url_to_obj')
+
+        self.data_validator = self.mocker.patch(
+            data_validator.MopageEventDataValidator(
+                self.context, self.request, self.data_provider))
+
+    def test_validate_event_ok(self):
+
+        data = {
+            'id': 'äxx',
+            'titel': 'xxx',
+            'allday': 'x',
+            'von': 'xxx',
+            'bis': 'xxx',
+        }
+
+        self.replay()
+
+        result = self.data_validator.validate(data)
+
+        self.assertEquals(result, None)
+
+    def test_validate_event_error(self):
+
+        data = {
+            'id': 'äxx',
+            'titel': 'xxx',
+            'textmobile': 'xxx',
+            'url_bild': ['xxx'],
+            'referenzort': "x"*200,
+        }
+
+        self.replay()
+
+        self.assertRaises(
+            data_validator.MopageValidationError,
+            self.data_validator.validate,
+            data)
+
+
+class TestNewsValidator(MockTestCase):
+
+    layer = FTWMOPAGE_ZCML_LAYER
+
+    def setUp(self):
+
+        self.request = self.stub_request()
+        self.context = self.stub()
+        self.data_provider = self.stub()
+        self.expect(
+            self.data_provider.context.absolute_url()).result('url_to_obj')
+
+        self.data_validator = self.mocker.patch(
+            data_validator.MopageNewsDataValidator(
+                self.context, self.request, self.data_provider))
+
+    def test_validate_news_ok(self):
+
+        data = {
+            'id': 'äxx',
+            'titel': 'xxx',
+            'textmobile': 'xxx',
+            'datumvon': 'xxx',
+            'mutationsdatum': 'xxx',
+        }
+
+        self.replay()
+
+        result = self.data_validator.validate(data)
+
+        self.assertEquals(result, None)
+
+    def test_validate_news_error(self):
+
+        data = {
+            'id': 'äxx',
+            'titel': 'xxx',
+            'textmobile': 'xxx',
+            'url_bild': ['xxx'],
+            'mutationsdatum': "x"*200,
+        }
+
+        self.replay()
+
+        self.assertRaises(
+            data_validator.MopageValidationError,
+            self.data_validator.validate,
+            data)
 
 
 class TestValidate(MockTestCase):
+
+    layer = FTWMOPAGE_ZCML_LAYER
 
     def setUp(self):
 
@@ -15,14 +173,6 @@ class TestValidate(MockTestCase):
             data_validator.BaseMopageDataValidator(
                 self.context, self.request, self.data_provider))
 
-    def test_validate_no_data(self):
-
-        self.replay()
-
-        result = self.data_validator.validate({})
-
-        self.assertEquals(result, None)
-
     def test_validate_no_errors(self):
 
         self.expect(self.data_validator.raise_error()).count(0)
@@ -31,7 +181,7 @@ class TestValidate(MockTestCase):
 
         self.replay()
 
-        result = self.data_validator.validate({'attr':'value'})
+        result = self.data_validator.validate({'attr': 'value'})
 
         self.assertEquals(result, None)
 
@@ -47,13 +197,15 @@ class TestValidate(MockTestCase):
 
         self.replay()
 
-        result = self.data_validator.validate({'attr':'value'})
+        result = self.data_validator.validate({'attr': 'value'})
 
         self.assertEquals(result, None)
         self.assertEquals(error_container['errors'], ['error'])
 
 
 class TestRaiseError(MockTestCase):
+
+    layer = FTWMOPAGE_ZCML_LAYER
 
     def setUp(self):
 
@@ -81,6 +233,8 @@ class TestRaiseError(MockTestCase):
 
 class TestValidationMethods(MockTestCase):
 
+    layer = FTWMOPAGE_ZCML_LAYER
+
     def setUp(self):
 
         self.request = self.stub_request()
@@ -91,7 +245,6 @@ class TestValidationMethods(MockTestCase):
         self.data_validator = self.mocker.patch(
             data_validator.BaseMopageDataValidator(
                 self.context, self.request, self.data_provider))
-
 
     def test_validate_not_empty_data_ok(self):
 
@@ -225,8 +378,12 @@ class TestValidationMethods(MockTestCase):
             [
                 data_validator.Property('id', True, str, 10),
                 data_validator.Property(
-                    'titel', True, list, 0, elements=data_validator.Property(
-                        '', True, str, 10),),
+                    'titel',
+                    True,
+                    list,
+                    0,
+                    elements=data_validator.Property(
+                        '', True, str, 10), ),
 
             ])
 
@@ -247,8 +404,12 @@ class TestValidationMethods(MockTestCase):
             [
                 data_validator.Property('id', True, str, 10),
                 data_validator.Property(
-                    'titel', True, list, 0, elements=data_validator.Property(
-                        '', True, str, 10),),
+                    'titel',
+                    True,
+                    list,
+                    0,
+                    elements=data_validator.Property(
+                        '', True, str, 10), ),
 
             ])
 

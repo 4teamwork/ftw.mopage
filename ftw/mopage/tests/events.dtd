@@ -1,0 +1,39 @@
+<!ELEMENT import (item*)>
+<!ATTLIST import
+    partner CDATA #REQUIRED
+    partnerid CDATA #REQUIRED
+    passwort CDATA #REQUIRED
+    importid CDATA #REQUIRED
+>
+<!ELEMENT item (
+    id,
+    titel,
+    termin,
+    referenzort?,
+    textmobile,
+    rubrik*,
+    textlead?,
+    url_bild?,
+    url_web?,
+    url_mobile?,
+    text?)>
+<!ATTLIST item
+    status CDATA #REQUIRED
+    suchbar CDATA #REQUIRED
+>   
+<!ELEMENT id (#PCDATA)>
+<!ELEMENT titel (#PCDATA)>
+<!ELEMENT textmobile (#PCDATA)>
+<!ELEMENT termin (von?, bis?)>
+<!ATTLIST termin
+    allday CDATA #REQUIRED
+>
+<!ELEMENT textlead (#PCDATA)>
+<!ELEMENT referenzort (#PCDATA)>
+<!ELEMENT url_bild (#PCDATA)>
+<!ELEMENT rubrik (#PCDATA)>
+<!ELEMENT text (#PCDATA)>
+<!ELEMENT url_web (#PCDATA)>
+<!ELEMENT url_mobile (#PCDATA)>
+<!ELEMENT von (#PCDATA)>
+<!ELEMENT bis (#PCDATA)>

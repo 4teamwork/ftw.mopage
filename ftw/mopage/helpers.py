@@ -13,7 +13,7 @@ def cdata(text):
 def make_links_absolute(obj, text):
     """Converts relative links to absolute.
     """
-    a_href_re = re.compile(r'<a[^>]*?href="([^"]*)', re.IGNORECASE|re.DOTALL)
+    a_href_re = re.compile(r'<a[^>]*?href="([^"]*)', re.IGNORECASE | re.DOTALL)
     matches = a_href_re.findall(text)
     for m in matches:
         target = obj.restrictedTraverse(m, None)

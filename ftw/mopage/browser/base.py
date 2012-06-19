@@ -2,6 +2,7 @@ import os
 from Products.statusmessages.interfaces import IStatusMessage
 from Products.Five.browser import BrowserView
 from zope.component import getMultiAdapter
+from Products.CMFCore.utils import getToolByName
 
 
 class BaseExport(BrowserView):
@@ -14,55 +15,58 @@ class BaseExport(BrowserView):
 
     def __call__(self):
 
-        file_path = self.get_file_path(
-            self.properties.export_dir, self.filename)
-
         if self.request.form.get('refresh', None) == '1':
 
             # refresh xml => do not download
-            self.refresh(file_path)
+            self.refresh()
 
             msg = u'Cache flushed for %s' % self.filename
             IStatusMessage(self.request).addStatusMessage(msg, type='info')
 
             return self.request.response.redirect(self.context.absolute_url())
 
-        return self.download(file_path)
+        return self.download()
 
-    def get_file_path(self, export_dir, filename):
+    def get_file_path(self):
         """ Return the path of the file. If the path does not exist, we
         create it.
         """
+
+        properties = getToolByName(self.context, 'portal_properties')
+        properties = properties.mopage_properties
+
+        export_dir = properties.export_dir
+
         path = os.path.join(
             os.environ.get('INSTANCE_HOME', ''), '%s/' % export_dir)
 
         if not os.path.exists(path):
             os.makedirs(path)
 
-        file_path = os.path.join(path, '%s.xml' % filename)
+        file_path = os.path.join(path, '%s.xml' % self.filename)
 
         return file_path
 
-    def refresh(self, file_path):
+    def refresh(self):
         """ Refresh or create the xml file
         """
 
         file_content = self.get_xml()
-        xml_file = open(file_path, 'w')
-        xml_file.write(file_content.encode('utf8'))
+        xml_file = open(self.get_file_path(), 'w')
+        xml_file.write(file_content)
         xml_file.close()
 
         return True
 
-    def download(self, file_path):
+    def download(self):
         """ Download the xml file
         """
+        path = self.get_file_path()
 
-        if not os.path.isfile(file_path):
-            # If we there is no file, we create it
-            self.refresh(file_path)
+        if not os.path.isfile(path):
+            self.refresh()
 
-        xml_file = open(file_path, 'r+')
+        xml_file = open(path, 'r+')
         tmp = xml_file.read()
         xml_file.close()
 
@@ -82,7 +86,7 @@ class BaseExport(BrowserView):
         xml_writer = getMultiAdapter(
             (self.context, self.request), self.xml_writer)
 
-        return xml_writer.generate_xml(self.get_data)
+        return xml_writer.generate_xml(self.get_data())
 
     def get_data(self):
         """Gets the news from catalog and prepares the
@@ -94,7 +98,7 @@ class BaseExport(BrowserView):
 
         brains = lookup_provider.get_brains()
 
-        data = []
+        xml_data = []
         for brain in brains:
             obj = brain.getObject()
 
@@ -113,6 +117,6 @@ class BaseExport(BrowserView):
 
             data_validator.validate(data)
 
-            data.append(data_provider.get_data())
+            xml_data.append(data_provider.get_data())
 
-        return data
+        return xml_data

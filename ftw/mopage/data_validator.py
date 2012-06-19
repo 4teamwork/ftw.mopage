@@ -40,9 +40,6 @@ class BaseMopageDataValidator(object):
         """
         self.data = data
 
-        if not self.data:
-            return
-
         self.attributes = self.get_attributes()
 
         queue = self.get_validation_queue()
@@ -59,8 +56,9 @@ class BaseMopageDataValidator(object):
 
     def raise_error(self, error_msgs):
 
-        entry_msg = ('\nYou get errors while validating data of item %s with '
-             'following associated data provider: %s\n') % (
+        entry_msg = (
+            '\nYou get errors while validating data of item %s with '
+            'following associated data provider: %s\n') % (
                 self.data_provider.context.absolute_url(),
                 self.data_provider,
             )
@@ -107,8 +105,9 @@ class BaseMopageDataValidator(object):
                 errors.append(prop('name'))
 
         if errors:
-            return ('The following attribute are required. Please specify '
-            'them in your data_provider: %s') % ', '.join(errors)
+            return (
+                'The following attribute are required. Please specify '
+                'them in your data_provider: %s') % ', '.join(errors)
 
     def validate_attribute_type(self):
         """ Check for attibutes containing text
@@ -124,8 +123,9 @@ class BaseMopageDataValidator(object):
                 errors.append(('%s: type: %s') % (prop('name'), prop('type_')))
 
         if errors:
-            return ('The following attributes have a bad type: %s') % (
-                ', '.join(errors))
+            return (
+                'The following attributes have a bad type: %s') % (
+                    ', '.join(errors))
 
     def validate_attribute_length(self):
         """ Check for attibutes containing text
@@ -145,12 +145,18 @@ class BaseMopageDataValidator(object):
 
             if isinstance(value, (list, tuple, set)):
                 subprop = prop('elements')
+
+                if not subprop:
+                    continue
+
                 for subvalue in value:
-                    length_validator(subvalue, subprop('length'), prop('name'))
+                        length_validator(
+                            subvalue, subprop('length'), prop('name'))
 
         if errors:
-            return ('Text is too long in following attributes: %s.') % (
-                ', '.join(errors))
+            return (
+                'Text is too long in following attributes: %s.') % (
+                    ', '.join(errors))
 
     def validate_unused_attributes(self):
         """ Check the data for unused attributes.
@@ -166,8 +172,9 @@ class BaseMopageDataValidator(object):
                 errors.append(attr)
 
         if errors:
-            return ('You have defined unused attributes: %s.') % (
-                ', '.join(errors))
+            return (
+                'You have defined unused attributes: %s.') % (
+                    ', '.join(errors))
 
 
 class MopageEventDataValidator(BaseMopageDataValidator):
@@ -179,10 +186,16 @@ class MopageEventDataValidator(BaseMopageDataValidator):
             Property('titel', True, str, 100),
             Property('von', True, str, 255),
             Property('bis', True, str, 255),
+            Property('allday', True, str, 1),
             Property('referenzort', False, str, 50),
             Property('textmobile', False, str, 10000),
-            Property('rubrik', False, list, 0,
-                elements=Property('', False, str, 100)),
+            Property(
+                'rubrik',
+                False,
+                list,
+                0,
+                elements=Property('', False, str, 100),
+            ),
             Property('textlead', False, str, 1000),
             Property('url_bild', False, str, 225),
             Property('url_web', False, str, 255),
@@ -203,8 +216,13 @@ class MopageNewsDataValidator(BaseMopageDataValidator):
             Property('mutationsdatum', True, str, 100),
             Property('textlead', False, str, 1000),
             Property('url_bild', False, str, 225),
-            Property('rubrik', False, list, 0,
-                elements=Property('', False, str, 100)),
+            Property(
+                'rubrik',
+                False,
+                list,
+                0,
+                elements=Property('', False, str, 100)
+            ),
             Property('text', False, str, 30000),
             Property('url_web', False, str, 1000),
             Property('url_mobile', False, str, 1000),
@@ -223,8 +241,13 @@ class MopageGeolocationDataValidator(BaseMopageDataValidator):
             Property('ort', True, str, 255),
             Property('land_iso', True, str, 2),
             Property('mutationsdatum', True, str, 100),
-            Property('rubrik', False, list, 0,
-                elements=Property('', False, str, 100)),
+            Property(
+                'rubrik',
+                False,
+                list,
+                0,
+                elements=Property('', False, str, 100)
+            ),
             Property('telefon1', False, str, 255),
             Property('email', False, str, 500),
             Property('oeffnungszeiten', False, str, 255),

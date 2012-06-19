@@ -1,0 +1,32 @@
+<!ELEMENT import (item*)>
+<!ATTLIST import
+    partner CDATA #REQUIRED
+    partnerid CDATA #REQUIRED
+    passwort CDATA #REQUIRED
+    importid CDATA #REQUIRED
+>
+<!ELEMENT item (
+    id,
+    titel,
+    textmobile,
+    textlead?,
+    url_bild?,
+    rubrik*,
+    text?,
+    url_web?,
+    url_mobile?)>
+<!ATTLIST item
+    status CDATA #REQUIRED
+    suchbar CDATA #REQUIRED
+    datumvon CDATA #REQUIRED
+    mutationsdatum CDATA #REQUIRED
+>   
+<!ELEMENT id (#PCDATA)>
+<!ELEMENT titel (#PCDATA)>
+<!ELEMENT textmobile (#PCDATA)>
+<!ELEMENT textlead (#PCDATA)>
+<!ELEMENT url_bild (#PCDATA)>
+<!ELEMENT rubrik (#PCDATA)>
+<!ELEMENT text (#PCDATA)>
+<!ELEMENT url_web (#PCDATA)>
+<!ELEMENT url_mobile (#PCDATA)>

@@ -5,6 +5,7 @@ maintainer = 'Julian Infanger'
 tests_require = [
     'ftw.testing',
     'plone.app.testing',
+    'lxml',
     ]
 
 setup(name='ftw.mopage',

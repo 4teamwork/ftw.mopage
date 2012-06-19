@@ -1,3 +1,4 @@
+# coding=UTF-8
 from ftw.mopage.testing import FTWMOPAGE_ZCML_LAYER
 from ftw.testing import MockTestCase
 from mocker import ANY
@@ -29,12 +30,9 @@ class TestViews(MockTestCase):
         self.expect(self.site.getPhysicalRoot()).result('/app/site')
 
         self.mopage_prop = self.create_dummy(
-            partner='partner',
+            partner='pärtner',
             partnerid='partnerid',
             password='password',
-            importid_events='importid_events',
-            importid_news='importid_news',
-            importid_geolocations='importid_geolocations',
             export_dir='var',
         )
         self.file_path = os.path.join(
@@ -43,22 +41,46 @@ class TestViews(MockTestCase):
         self.brain_1 = self.stub()
         self.expect(self.brain_1.getObject()).result(self.brain_1)
 
-        self.data_provider = self.stub()
-        self.expect(self.data_provider(ANY, ANY)).result(self.data_provider)
-
-        self.mock_adapter(self.data_provider, IMopageEventDataProvider,
-             (Interface, Interface))
-        self.mock_adapter(self.data_provider, IMopageNewsDataProvider,
-            (Interface, Interface))
-        self.mock_adapter(self.data_provider, IMopageGeolocationDataProvider,
-            (Interface, Interface))
         self.ptool = self.stub()
         self.expect(self.ptool.mopage_properties).result(self.mopage_prop)
-
         self.mock_tool(self.ptool, 'portal_properties')
 
         self.ctool = self.stub()
         self.mock_tool(self.ctool, 'portal_catalog')
+
+        # DataProvider adapters
+        self.news_data_provider = self.providing_stub(
+            [IMopageNewsDataProvider])
+        self.expect(self.news_data_provider(ANY, ANY)).result(
+            self.news_data_provider)
+        self.expect(
+            self.news_data_provider.context.absolute_url()).result(
+                'url_to_obj')
+
+        self.event_data_provider = self.providing_stub(
+            [IMopageEventDataProvider])
+        self.expect(self.event_data_provider(ANY, ANY)).result(
+            self.event_data_provider)
+        self.expect(
+            self.event_data_provider.context.absolute_url()).result(
+                'url_to_obj')
+
+        self.geolocation_data_provider = self.providing_stub(
+            [IMopageGeolocationDataProvider])
+        self.expect(self.geolocation_data_provider(ANY, ANY)).result(
+            self.geolocation_data_provider)
+        self.expect(
+            self.geolocation_data_provider.context.absolute_url()).result(
+                'url_to_obj')
+
+        # Registering DataProvider adapters
+        self.mock_adapter(self.event_data_provider, IMopageEventDataProvider,
+             (Interface, Interface))
+        self.mock_adapter(self.news_data_provider, IMopageNewsDataProvider,
+            (Interface, Interface))
+        self.mock_adapter(
+            self.geolocation_data_provider, IMopageGeolocationDataProvider,
+            (Interface, Interface))
 
     def test_events_download(self):
 
@@ -67,8 +89,15 @@ class TestViews(MockTestCase):
         self.expect(self.request.form.get('refresh', ANY)).result('0')
         self.expect(self.request.form.get('plain', ANY)).result('0')
 
-        data = {}
-        self.expect(self.data_provider.get_data()).result(data)
+        data = {
+            'id': 'äxx',
+            'titel': 'xxx',
+            'allday': 'x',
+            'von': 'xxx',
+            'bis': 'xxx',
+        }
+
+        self.expect(self.event_data_provider.get_data()).result(data)
 
         self.replay()
 
@@ -76,7 +105,7 @@ class TestViews(MockTestCase):
                                name='mopage_events.xml')
         result = view()
 
-        file_ = open(os.path.join(self.file_path, 'events.xml') , 'r')
+        file_ = open(os.path.join(self.file_path, 'events.xml'), 'r')
 
         self.assertTrue(isinstance(file_, file))
         self.assertTrue(file_.read(), result)
@@ -96,8 +125,15 @@ class TestViews(MockTestCase):
         self.expect(self.request.form.get('refresh', ANY)).result('0')
         self.expect(self.request.form.get('plain', ANY)).result('0')
 
-        data = {}
-        self.expect(self.data_provider.get_data()).result(data)
+        data = {
+            'id': 'äxx',
+            'titel': 'xxx',
+            'textmobile': 'xxx',
+            'datumvon': 'xxx',
+            'mutationsdatum': 'xxx',
+        }
+
+        self.expect(self.news_data_provider.get_data()).result(data)
 
         self.replay()
 
@@ -105,7 +141,7 @@ class TestViews(MockTestCase):
                                name='mopage_news.xml')
         result = view()
 
-        file_ = open(os.path.join(self.file_path, 'news.xml') , 'r')
+        file_ = open(os.path.join(self.file_path, 'news.xml'), 'r')
 
         self.assertTrue(isinstance(file_, file))
         self.assertTrue(file_.read(), result)
@@ -125,8 +161,16 @@ class TestViews(MockTestCase):
         self.expect(self.request.form.get('refresh', ANY)).result('0')
         self.expect(self.request.form.get('plain', ANY)).result('0')
 
-        data = {}
-        self.expect(self.data_provider.get_data()).result(data)
+        data = {
+            'id': 'äxx',
+            'titel': 'xxx',
+            'adresse': 'xxx',
+            'plz': 'xxx',
+            'ort': 'xxx',
+            'land_iso': 'xx',
+            'mutationsdatum': 'xxx',
+        }
+        self.expect(self.geolocation_data_provider.get_data()).result(data)
 
         self.replay()
 
@@ -134,7 +178,7 @@ class TestViews(MockTestCase):
                                name='mopage_geolocations.xml')
         result = view()
 
-        file_ = open(os.path.join(self.file_path, 'geolocations.xml') , 'r')
+        file_ = open(os.path.join(self.file_path, 'geolocations.xml'), 'r')
 
         self.assertTrue(isinstance(file_, file))
         self.assertTrue(file_.read(), result)

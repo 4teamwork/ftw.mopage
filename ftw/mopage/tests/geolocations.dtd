@@ -1,0 +1,73 @@
+<!ELEMENT import (item*)>
+<!ATTLIST import
+    partner CDATA #REQUIRED
+    partnerid CDATA #REQUIRED
+    passwort CDATA #REQUIRED
+    importid CDATA #REQUIRED
+>
+<!ELEMENT item (
+    id,
+    titel,
+    adresse,
+    plz,
+    ort,
+    land_iso,
+    rubrik*,
+    telefon1?,
+    email?,
+    oeffnungszeiten?,
+    textmobile?,
+    url_web?,
+    url_mobile?,
+    firma?,
+    vorname?,
+    name?,
+    sex?,
+    abteilung?,
+    telefon2?,
+    telefon3?,
+    mobile?,
+    fax?, 
+    adresse_zusatz?,
+    land?,
+    textlead?,
+    url_bild?,
+    oev?,
+    longitude?,
+    latitude?,
+    text?)>
+<!ATTLIST item
+    status CDATA #REQUIRED
+    suchbar CDATA #REQUIRED
+    mutationsdatum CDATA #REQUIRED
+>   
+<!ELEMENT id (#PCDATA)>
+<!ELEMENT titel (#PCDATA)>
+<!ELEMENT adresse (#PCDATA)>
+<!ELEMENT plz (#PCDATA)>
+<!ELEMENT ort (#PCDATA)>
+<!ELEMENT land_iso (#PCDATA)>
+<!ELEMENT rubrik (#PCDATA)>
+<!ELEMENT telefon1 (#PCDATA)>
+<!ELEMENT email (#PCDATA)>
+<!ELEMENT oeffnungszeiten (#PCDATA)>
+<!ELEMENT textmobile (#PCDATA)>
+<!ELEMENT url_web (#PCDATA)>
+<!ELEMENT url_mobile (#PCDATA)>
+<!ELEMENT firma (#PCDATA)>
+<!ELEMENT vorname (#PCDATA)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT sex (#PCDATA)>
+<!ELEMENT abteilung (#PCDATA)>
+<!ELEMENT telefon2 (#PCDATA)>
+<!ELEMENT telefon3 (#PCDATA)>
+<!ELEMENT mobile (#PCDATA)>
+<!ELEMENT fax (#PCDATA)>
+<!ELEMENT adresse_zusatz (#PCDATA)>
+<!ELEMENT land (#PCDATA)>
+<!ELEMENT textlead (#PCDATA)>
+<!ELEMENT url_bild (#PCDATA)>
+<!ELEMENT oev (#PCDATA)>
+<!ELEMENT longitude (#PCDATA)>
+<!ELEMENT latitude (#PCDATA)>
+<!ELEMENT text (#PCDATA)>
