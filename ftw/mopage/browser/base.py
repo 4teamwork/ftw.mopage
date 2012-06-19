@@ -1,5 +1,4 @@
 import os
-from Products.statusmessages.interfaces import IStatusMessage
 from Products.Five.browser import BrowserView
 from zope.component import getMultiAdapter
 from Products.CMFCore.utils import getToolByName
@@ -18,12 +17,7 @@ class BaseExport(BrowserView):
         if self.request.form.get('refresh', None) == '1':
 
             # refresh xml => do not download
-            self.refresh()
-
-            msg = u'Cache flushed for %s' % self.filename
-            IStatusMessage(self.request).addStatusMessage(msg, type='info')
-
-            return self.request.response.redirect(self.context.absolute_url())
+            return self.refresh()
 
         return self.download()
 
@@ -74,10 +68,9 @@ class BaseExport(BrowserView):
             'Content-Type',
             'application/xml')
 
-        if self.request.form.get('plain', 0) != '1':
-            self.context.REQUEST.RESPONSE.setHeader(
-                'Content-disposition',
-                'attachment; filename=%s.xml' % self.filename)
+        self.context.REQUEST.RESPONSE.setHeader(
+            'Content-disposition',
+            'attachment; filename=%s.xml' % self.filename)
 
         return tmp
 

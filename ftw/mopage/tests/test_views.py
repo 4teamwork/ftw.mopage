@@ -82,19 +82,46 @@ class TestViews(MockTestCase):
             self.geolocation_data_provider, IMopageGeolocationDataProvider,
             (Interface, Interface))
 
+    def test_refresh(self):
+
+        self.expect(self.ctool(ANY)).result([self.brain_1])
+
+        self.expect(self.request.form.get('refresh', ANY)).result('1')
+
+        data = {
+            'id': 'äxx',
+            'titel': 'abc123',
+            'allday': 'x',
+            'von': 'abc123',
+            'bis': 'abc123',
+        }
+
+        self.expect(self.event_data_provider.get_data()).result(data)
+
+        self.replay()
+
+        view = getMultiAdapter((self.context, self.request),
+                               name='mopage_events.xml')
+        result = view()
+
+        file_ = open(os.path.join(self.file_path, 'events.xml'), 'r')
+
+        self.assertTrue(isinstance(file_, file))
+        self.assertEquals(result, True)
+        self.assertEquals(self.request_map, [])
+
     def test_events_download(self):
 
         self.expect(self.ctool(ANY)).result([self.brain_1])
 
         self.expect(self.request.form.get('refresh', ANY)).result('0')
-        self.expect(self.request.form.get('plain', ANY)).result('0')
 
         data = {
             'id': 'äxx',
-            'titel': 'xxx',
+            'titel': 'abc123',
             'allday': 'x',
-            'von': 'xxx',
-            'bis': 'xxx',
+            'von': 'abc123',
+            'bis': 'abc123',
         }
 
         self.expect(self.event_data_provider.get_data()).result(data)
@@ -123,14 +150,13 @@ class TestViews(MockTestCase):
         self.expect(self.ctool(ANY)).result([self.brain_1])
 
         self.expect(self.request.form.get('refresh', ANY)).result('0')
-        self.expect(self.request.form.get('plain', ANY)).result('0')
 
         data = {
             'id': 'äxx',
-            'titel': 'xxx',
-            'textmobile': 'xxx',
-            'datumvon': 'xxx',
-            'mutationsdatum': 'xxx',
+            'titel': 'abc123',
+            'textmobile': 'abc123',
+            'datumvon': 'abc123',
+            'mutationsdatum': 'abc123',
         }
 
         self.expect(self.news_data_provider.get_data()).result(data)
@@ -163,12 +189,12 @@ class TestViews(MockTestCase):
 
         data = {
             'id': 'äxx',
-            'titel': 'xxx',
-            'adresse': 'xxx',
-            'plz': 'xxx',
-            'ort': 'xxx',
+            'titel': 'abc123',
+            'adresse': 'abc123',
+            'plz': 'abc123',
+            'ort': 'abc123',
             'land_iso': 'xx',
-            'mutationsdatum': 'xxx',
+            'mutationsdatum': 'abc123',
         }
         self.expect(self.geolocation_data_provider.get_data()).result(data)
 

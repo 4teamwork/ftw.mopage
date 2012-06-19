@@ -25,12 +25,12 @@ class TestGeolocationValidator(MockTestCase):
 
         data = {
             'id': 'äxx',
-            'titel': 'xxx',
-            'adresse': 'xxx',
-            'plz': 'xxx',
-            'ort': 'xxx',
+            'titel': 'abc123',
+            'adresse': 'abc123',
+            'plz': 'abc123',
+            'ort': 'abc123',
             'land_iso': 'xx',
-            'mutationsdatum': 'xxx',
+            'mutationsdatum': 'abc123',
         }
 
         self.replay()
@@ -43,11 +43,11 @@ class TestGeolocationValidator(MockTestCase):
 
         data = {
             'id': 'äxx',
-            'titel': 'xxx',
-            'adresse': 'xxx',
-            'plz': 'xxx',
-            'ort': 'xxx',
-            'url_bild': ['xxx'],
+            'titel': 'abc123',
+            'adresse': 'abc123',
+            'plz': 'abc123',
+            'ort': 'abc123',
+            'url_bild': ['abc123'],
             'url_web': "x"*500,
         }
 
@@ -79,10 +79,10 @@ class TestEventValidator(MockTestCase):
 
         data = {
             'id': 'äxx',
-            'titel': 'xxx',
+            'titel': 'abc123',
             'allday': 'x',
-            'von': 'xxx',
-            'bis': 'xxx',
+            'von': 'abc123',
+            'bis': 'abc123',
         }
 
         self.replay()
@@ -95,9 +95,9 @@ class TestEventValidator(MockTestCase):
 
         data = {
             'id': 'äxx',
-            'titel': 'xxx',
-            'textmobile': 'xxx',
-            'url_bild': ['xxx'],
+            'titel': 'abc123',
+            'textmobile': 'abc123',
+            'url_bild': ['abc123'],
             'referenzort': "x"*200,
         }
 
@@ -129,10 +129,10 @@ class TestNewsValidator(MockTestCase):
 
         data = {
             'id': 'äxx',
-            'titel': 'xxx',
-            'textmobile': 'xxx',
-            'datumvon': 'xxx',
-            'mutationsdatum': 'xxx',
+            'titel': 'abc123',
+            'textmobile': 'abc123',
+            'datumvon': 'abc123',
+            'mutationsdatum': 'abc123',
         }
 
         self.replay()
@@ -145,9 +145,9 @@ class TestNewsValidator(MockTestCase):
 
         data = {
             'id': 'äxx',
-            'titel': 'xxx',
-            'textmobile': 'xxx',
-            'url_bild': ['xxx'],
+            'titel': 'abc123',
+            'textmobile': 'abc123',
+            'url_bild': ['abc123'],
             'mutationsdatum': "x"*200,
         }
 
