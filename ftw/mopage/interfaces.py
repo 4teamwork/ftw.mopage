@@ -1,3 +1,6 @@
+# pylint: disable=E0211, E0213
+# E0211: Method has no argument
+# E0213: Method should have "self" as first argument
 from zope.interface import Interface
 
 
@@ -105,80 +108,14 @@ class IMopageGeolocationDataProvider(IMopageXMLDataProvider):
     mopage_geolocation.xml-view
     """
 
-    def get_data():
-        """
-        Needs to provide following keys in the dict:
-
-        - id
-        - title
-        - street
-        - modified
-        - plz
-        - place
-        - country
-        - categories
-        - phone
-        - email
-        - opening
-        - text_short
-        - company
-        - firstname
-        - lastname
-        - mobile
-        - fax
-        - description
-        - image_url
-        - rubriken
-        - anfahrt
-        - url
-        - longitude
-        - latitude
-        """
-
 
 class IMopageEventDataProvider(IMopageXMLDataProvider):
     """Adapter provides data to export with
     mopage_event.xml-view
     """
 
-    def get_data():
-        """
-        Needs to provide following keys in the dict:
-
-        - id
-        - title
-        - modified
-        - allday
-        - start
-        - end
-        - reference (reference to geolocation data id)
-        - text
-        - categories
-        - description
-        - image_url
-        - url
-
-        """
-
 
 class IMopageNewsDataProvider(IMopageXMLDataProvider):
     """Adapter provides data to export with
     mopage_news.xml-view
     """
-
-    def get_data():
-        """
-        Needs to provide following keys in the dict:
-
-        - id
-        - title
-        - description
-        - text_short
-        - text
-        - image_url
-        - categories
-        - url
-        - modified
-        - datumvon
-        - datumbis
-        """

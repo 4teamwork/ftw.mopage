@@ -10,9 +10,9 @@ class BaseMopageDataProvider(object):
         self.request = request
 
     def get_data(self):
+        """ Return data
         """
-        """
-        raise NotImplementedError
+        return {}
 
 
 class MopageEventDataProvider(BaseMopageDataProvider):

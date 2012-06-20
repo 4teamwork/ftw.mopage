@@ -150,8 +150,8 @@ class BaseMopageDataValidator(object):
                     continue
 
                 for subvalue in value:
-                        length_validator(
-                            subvalue, subprop('length'), prop('name'))
+                    length_validator(
+                        subvalue, subprop('length'), prop('name'))
 
         if errors:
             return (
