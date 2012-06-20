@@ -1,9 +1,9 @@
-from ftw.mopage.interfaces import IMopageGeolocationDataProvider, \
-    IMopageNewsDataProvider, IMopageEventDataProvider
+from ftw.mopage import interfaces
 from zope.interface import implements
 
 
 class BaseMopageDataProvider(object):
+    implements(interfaces.IMopageDataProvider)
 
     def __init__(self, context, request):
         self.context = context
@@ -16,12 +16,12 @@ class BaseMopageDataProvider(object):
 
 
 class MopageEventDataProvider(BaseMopageDataProvider):
-    implements(IMopageEventDataProvider)
+    implements(interfaces.IMopageEventDataProvider)
 
 
 class MopageNewsDataProvider(BaseMopageDataProvider):
-    implements(IMopageNewsDataProvider)
+    implements(interfaces.IMopageNewsDataProvider)
 
 
 class MopageGeolocationDataProvider(BaseMopageDataProvider):
-    implements(IMopageGeolocationDataProvider)
+    implements(interfaces.IMopageGeolocationDataProvider)

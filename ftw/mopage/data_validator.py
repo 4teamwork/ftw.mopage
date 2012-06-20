@@ -1,14 +1,15 @@
-from ftw.mopage.interfaces import IMopageGeolocationDataValidator, \
-    IMopageNewsDataValidator, IMopageEventDataValidator
+from ftw.mopage import interfaces
 from zope.interface import implements
 
 
 class MopageValidationError(Exception):
-    """ Raised when a the data is not valid
+    """ Raised when the data is not valid
     """
 
 
 class Property(object):
+    """ Property to validate in mopage validators
+    """
 
     def __init__(self, name, required, type_, length, **kwargs):
 
@@ -26,8 +27,10 @@ class Property(object):
 
 
 class BaseMopageDataValidator(object):
+    implements(interfaces.IMopageDataValidator)
 
     def __init__(self, context, request, data_provider):
+
         self.context = context
         self.request = request
         self.data_provider = data_provider
@@ -35,23 +38,19 @@ class BaseMopageDataValidator(object):
         self.attributes = []
 
     def validate(self, data):
-        """ Validates the given data
 
-        """
         self.data = data
-
         self.attributes = self.get_attributes()
 
         queue = self.get_validation_queue()
-
         validated = [job() for job in queue]
-
         error_msgs = filter(None, validated)
 
         if error_msgs:
             self.raise_error(error_msgs)
 
     def get_attributes(self):
+
         return []
 
     def raise_error(self, error_msgs):
@@ -68,12 +67,10 @@ class BaseMopageDataValidator(object):
         raise MopageValidationError(error_msg)
 
     def get_validation_queue(self):
-        """Return a list of validation methods found in the validator class.
-        """
 
         def is_validation_method(attr):
 
-            return attr.startswith('validate_') and \
+            return attr.startswith('_validate_') and \
                 hasattr(getattr(self, attr), '__call__')
 
         method_names = filter(is_validation_method, dir(self))
@@ -81,16 +78,24 @@ class BaseMopageDataValidator(object):
 
         return methods
 
-    def validate_not_empty_data(self):
+    def _validate_not_empty_data(self):
+        """ If data is empty, we return a errormessage
+        """
+
         if not self.data:
             return 'The given data_provider does not return any data.'
 
-    def validate_correct_instance(self):
+    def _validate_correct_instance(self):
+        """ If data is not a dict, we return a errormessage
+        """
+
         if not isinstance(self.data, dict):
             return 'The data_provider must return a dict with data.'
 
-    def validate_required_attributes(self):
+    def _validate_required_attributes(self):
         """ Check for required attributes
+
+        If there missing required attributes, we return a errormessage
         """
 
         errors = []
@@ -109,8 +114,9 @@ class BaseMopageDataValidator(object):
                 'The following attribute are required. Please specify '
                 'them in your data_provider: %s') % ', '.join(errors)
 
-    def validate_attribute_type(self):
-        """ Check for attibutes containing text
+    def _validate_attribute_type(self):
+        """ The type of every attribute must be correct. If not, we
+        return a errormessage
         """
 
         errors = []
@@ -127,8 +133,9 @@ class BaseMopageDataValidator(object):
                 'The following attributes have a bad type: %s') % (
                     ', '.join(errors))
 
-    def validate_attribute_length(self):
-        """ Check for attibutes containing text
+    def _validate_attribute_length(self):
+        """ The length of every attribute must be correct. If not, we
+        return a errormessage
         """
 
         errors = []
@@ -158,8 +165,9 @@ class BaseMopageDataValidator(object):
                 'Text is too long in following attributes: %s.') % (
                     ', '.join(errors))
 
-    def validate_unused_attributes(self):
-        """ Check the data for unused attributes.
+    def _validate_unused_attributes(self):
+        """ If there are attributes set in data we do not expect,
+        we return a errormessage
         """
 
         given_attrs = self.data.keys()
@@ -178,7 +186,7 @@ class BaseMopageDataValidator(object):
 
 
 class MopageEventDataValidator(BaseMopageDataValidator):
-    implements(IMopageEventDataValidator)
+    implements(interfaces.IMopageEventDataValidator)
 
     def get_attributes(self):
         return [
@@ -205,7 +213,7 @@ class MopageEventDataValidator(BaseMopageDataValidator):
 
 
 class MopageNewsDataValidator(BaseMopageDataValidator):
-    implements(IMopageNewsDataValidator)
+    implements(interfaces.IMopageNewsDataValidator)
 
     def get_attributes(self):
         return [
@@ -230,7 +238,7 @@ class MopageNewsDataValidator(BaseMopageDataValidator):
 
 
 class MopageGeolocationDataValidator(BaseMopageDataValidator):
-    implements(IMopageGeolocationDataValidator)
+    implements(interfaces.IMopageGeolocationDataValidator)
 
     def get_attributes(self):
         return [

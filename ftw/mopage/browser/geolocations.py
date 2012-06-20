@@ -7,5 +7,5 @@ class ExportGeoLocations(BaseExport):
     filename = 'geolocations'
     data_provider = i.IMopageGeolocationDataProvider
     data_validator = i.IMopageGeolocationDataValidator
-    lookup_provider = i.IMopageGeolocationLookup
-    xml_writer = i.IMopageGeolocationXMLWriter
+    lookup_provider = i.IMopageGeolocationObjectLookup
+    xml_generator = i.IMopageGeolocationXMLGenerator

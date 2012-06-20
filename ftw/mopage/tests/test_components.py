@@ -3,9 +3,9 @@ from ftw.mopage.testing import FTWMOPAGE_ZCML_LAYER
 from ftw.testing import MockTestCase
 from ftw.mopage import interfaces as i
 from ftw.mopage import data_provider
-from ftw.mopage import data_lookup
+from ftw.mopage import object_lookup
 from ftw.mopage import data_validator
-from ftw.mopage import xml_writer
+from ftw.mopage import xml_generator
 from zope.component import getMultiAdapter
 
 
@@ -13,22 +13,22 @@ class TestGeolocationComponents(MockTestCase):
 
     layer = FTWMOPAGE_ZCML_LAYER
 
-    def test_data_lookup_implements(self):
+    def test_object_lookup_implements(self):
 
         self.replay()
 
-        self.assertTrue(i.IMopageGeolocationLookup.implementedBy(
-           data_lookup.MopageGeolocationLookup))
+        self.assertTrue(i.IMopageGeolocationObjectLookup.implementedBy(
+           object_lookup.MopageGeolocationObjectLookup))
 
         verifyClass(
-            i.IMopageGeolocationLookup, data_lookup.MopageGeolocationLookup)
+            i.IMopageGeolocationObjectLookup, object_lookup.MopageGeolocationObjectLookup)
 
-    def test_data_lookup_registered(self):
+    def test_object_lookup_registered(self):
 
         self.replay()
 
-        obj = getMultiAdapter((object(), object()), i.IMopageGeolocationLookup)
-        self.assertEquals(obj.__class__, data_lookup.MopageGeolocationLookup)
+        obj = getMultiAdapter((object(), object()), i.IMopageGeolocationObjectLookup)
+        self.assertEquals(obj.__class__, object_lookup.MopageGeolocationObjectLookup)
 
     def test_data_provider_implements(self):
         self.replay()
@@ -37,7 +37,7 @@ class TestGeolocationComponents(MockTestCase):
             data_provider.MopageGeolocationDataProvider))
 
         verifyClass(
-            i.IMopageGeolocationLookup, data_lookup.MopageGeolocationLookup)
+            i.IMopageGeolocationObjectLookup, object_lookup.MopageGeolocationObjectLookup)
 
     def test_data_validator_implements(self):
 
@@ -61,45 +61,45 @@ class TestGeolocationComponents(MockTestCase):
         self.assertEquals(
             obj.__class__, data_validator.MopageGeolocationDataValidator)
 
-    def test_xml_writer_implements(self):
+    def test_xml_generator_implements(self):
         self.replay()
 
-        self.assertTrue(i.IMopageGeolocationXMLWriter.implementedBy(
-           xml_writer.MopageGeolocationXMLWriter))
+        self.assertTrue(i.IMopageGeolocationXMLGenerator.implementedBy(
+           xml_generator.MopageGeolocationXMLGenerator))
 
         verifyClass(
-            i.IMopageGeolocationXMLWriter,
-            xml_writer.MopageGeolocationXMLWriter,
+            i.IMopageGeolocationXMLGenerator,
+            xml_generator.MopageGeolocationXMLGenerator,
         )
 
-    def test_xml_writer_registered(self):
+    def test_xml_generator_registered(self):
 
         self.replay()
 
         obj = getMultiAdapter(
-            (object(), object()), i.IMopageGeolocationXMLWriter)
-        self.assertEquals(obj.__class__, xml_writer.MopageGeolocationXMLWriter)
+            (object(), object()), i.IMopageGeolocationXMLGenerator)
+        self.assertEquals(obj.__class__, xml_generator.MopageGeolocationXMLGenerator)
 
 
 class TestNewsComponents(MockTestCase):
 
     layer = FTWMOPAGE_ZCML_LAYER
 
-    def test_data_lookup_implements(self):
+    def test_object_lookup_implements(self):
 
         self.replay()
 
-        self.assertTrue(i.IMopageNewsLookup.implementedBy(
-           data_lookup.MopageNewsLookup))
+        self.assertTrue(i.IMopageNewsObjectLookup.implementedBy(
+           object_lookup.MopageNewsObjectLookup))
 
-        verifyClass(i.IMopageNewsLookup, data_lookup.MopageNewsLookup)
+        verifyClass(i.IMopageNewsObjectLookup, object_lookup.MopageNewsObjectLookup)
 
-    def test_data_lookup_registered(self):
+    def test_object_lookup_registered(self):
 
         self.replay()
 
-        obj = getMultiAdapter((object(), object()), i.IMopageNewsLookup)
-        self.assertEquals(obj.__class__, data_lookup.MopageNewsLookup)
+        obj = getMultiAdapter((object(), object()), i.IMopageNewsObjectLookup)
+        self.assertEquals(obj.__class__, object_lookup.MopageNewsObjectLookup)
 
     def test_data_provider_implements(self):
         self.replay()
@@ -107,7 +107,7 @@ class TestNewsComponents(MockTestCase):
         self.assertTrue(i.IMopageNewsDataProvider.implementedBy(
             data_provider.MopageNewsDataProvider))
 
-        verifyClass(i.IMopageNewsLookup, data_lookup.MopageNewsLookup)
+        verifyClass(i.IMopageNewsObjectLookup, object_lookup.MopageNewsObjectLookup)
 
     def test_data_validator_implements(self):
 
@@ -131,41 +131,41 @@ class TestNewsComponents(MockTestCase):
         self.assertEquals(
             obj.__class__, data_validator.MopageNewsDataValidator)
 
-    def test_xml_writer_implements(self):
+    def test_xml_generator_implements(self):
         self.replay()
 
-        self.assertTrue(i.IMopageNewsXMLWriter.implementedBy(
-           xml_writer.MopageNewsXMLWriter))
+        self.assertTrue(i.IMopageNewsXMLGenerator.implementedBy(
+           xml_generator.MopageNewsXMLGenerator))
 
-        verifyClass(i.IMopageNewsXMLWriter, xml_writer.MopageNewsXMLWriter)
+        verifyClass(i.IMopageNewsXMLGenerator, xml_generator.MopageNewsXMLGenerator)
 
-    def test_xml_writer_registered(self):
+    def test_xml_generator_registered(self):
 
         self.replay()
 
-        obj = getMultiAdapter((object(), object()), i.IMopageNewsXMLWriter)
-        self.assertEquals(obj.__class__, xml_writer.MopageNewsXMLWriter)
+        obj = getMultiAdapter((object(), object()), i.IMopageNewsXMLGenerator)
+        self.assertEquals(obj.__class__, xml_generator.MopageNewsXMLGenerator)
 
 
 class TestEventComponents(MockTestCase):
 
     layer = FTWMOPAGE_ZCML_LAYER
 
-    def test_data_lookup_implements(self):
+    def test_object_lookup_implements(self):
 
         self.replay()
 
-        self.assertTrue(i.IMopageEventLookup.implementedBy(
-           data_lookup.MopageEventLookup))
+        self.assertTrue(i.IMopageEventObjectLookup.implementedBy(
+           object_lookup.MopageEventObjectLookup))
 
-        verifyClass(i.IMopageEventLookup, data_lookup.MopageEventLookup)
+        verifyClass(i.IMopageEventObjectLookup, object_lookup.MopageEventObjectLookup)
 
-    def test_data_lookup_registered(self):
+    def test_object_lookup_registered(self):
 
         self.replay()
 
-        obj = getMultiAdapter((object(), object()), i.IMopageEventLookup)
-        self.assertEquals(obj.__class__, data_lookup.MopageEventLookup)
+        obj = getMultiAdapter((object(), object()), i.IMopageEventObjectLookup)
+        self.assertEquals(obj.__class__, object_lookup.MopageEventObjectLookup)
 
     def test_data_provider_implements(self):
         self.replay()
@@ -173,7 +173,7 @@ class TestEventComponents(MockTestCase):
         self.assertTrue(i.IMopageEventDataProvider.implementedBy(
             data_provider.MopageEventDataProvider))
 
-        verifyClass(i.IMopageEventLookup, data_lookup.MopageEventLookup)
+        verifyClass(i.IMopageEventObjectLookup, object_lookup.MopageEventObjectLookup)
 
     def test_data_validator_implements(self):
 
@@ -197,17 +197,17 @@ class TestEventComponents(MockTestCase):
         self.assertEquals(
             obj.__class__, data_validator.MopageEventDataValidator)
 
-    def test_xml_writer_implements(self):
+    def test_xml_generator_implements(self):
         self.replay()
 
-        self.assertTrue(i.IMopageEventXMLWriter.implementedBy(
-           xml_writer.MopageEventXMLWriter))
+        self.assertTrue(i.IMopageEventXMLGenerator.implementedBy(
+           xml_generator.MopageEventXMLGenerator))
 
-        verifyClass(i.IMopageEventXMLWriter, xml_writer.MopageEventXMLWriter)
+        verifyClass(i.IMopageEventXMLGenerator, xml_generator.MopageEventXMLGenerator)
 
-    def test_xml_writer_registered(self):
+    def test_xml_generator_registered(self):
 
         self.replay()
 
-        obj = getMultiAdapter((object(), object()), i.IMopageEventXMLWriter)
-        self.assertEquals(obj.__class__, xml_writer.MopageEventXMLWriter)
+        obj = getMultiAdapter((object(), object()), i.IMopageEventXMLGenerator)
+        self.assertEquals(obj.__class__, xml_generator.MopageEventXMLGenerator)

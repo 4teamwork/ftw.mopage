@@ -1,6 +1,6 @@
 # coding=UTF-8
 from ftw.testing import MockTestCase
-from ftw.mopage import xml_writer
+from ftw.mopage import xml_generator
 from lxml import etree
 from StringIO import StringIO
 from ftw.mopage.testing import FTWMOPAGE_ZCML_LAYER
@@ -23,7 +23,7 @@ def validate_xml(dtd_path, xml_string):
     return dtd.error_log
 
 
-class TestXMLWriter(MockTestCase):
+class TestXMLGenerator(MockTestCase):
 
     layer = FTWMOPAGE_ZCML_LAYER
 
@@ -42,13 +42,13 @@ class TestXMLWriter(MockTestCase):
         self.expect(self.ptool.mopage_properties).result(self.mopage_prop)
         self.mock_tool(self.ptool, 'portal_properties')
 
-        self.news_xml_writer = xml_writer.MopageNewsXMLWriter(
+        self.news_xml_generator = xml_generator.MopageNewsXMLGenerator(
                 self.context, self.request)
 
-        self.event_xml_writer = xml_writer.MopageEventXMLWriter(
+        self.event_xml_generator = xml_generator.MopageEventXMLGenerator(
                 self.context, self.request)
 
-        self.geolocation_xml_writer = xml_writer.MopageGeolocationXMLWriter(
+        self.geolocation_xml_generator = xml_generator.MopageGeolocationXMLGenerator(
                 self.context, self.request)
 
     def test_geolocation_valid(self):
@@ -123,7 +123,7 @@ class TestXMLWriter(MockTestCase):
 
         self.replay()
 
-        xml = self.geolocation_xml_writer.generate_xml(data)
+        xml = self.geolocation_xml_generator.generate_xml_string(data)
 
         result = validate_xml(
             path.join(path.dirname(__file__), 'geolocations.dtd'), xml)
@@ -168,7 +168,7 @@ class TestXMLWriter(MockTestCase):
 
         self.replay()
 
-        xml = self.geolocation_xml_writer.generate_xml(data)
+        xml = self.geolocation_xml_generator.generate_xml_string(data)
 
         result = validate_xml(
             path.join(path.dirname(__file__), 'geolocations.dtd'), xml)
@@ -213,7 +213,7 @@ class TestXMLWriter(MockTestCase):
 
         self.replay()
 
-        xml = self.event_xml_writer.generate_xml(data)
+        xml = self.event_xml_generator.generate_xml_string(data)
 
         result = validate_xml(
             path.join(path.dirname(__file__), 'events.dtd'), xml)
@@ -241,7 +241,7 @@ class TestXMLWriter(MockTestCase):
 
         self.replay()
 
-        xml = self.event_xml_writer.generate_xml(data)
+        xml = self.event_xml_generator.generate_xml_string(data)
 
         result = validate_xml(
             path.join(path.dirname(__file__), 'events.dtd'), xml)
@@ -280,7 +280,7 @@ class TestXMLWriter(MockTestCase):
 
         self.replay()
 
-        xml = self.news_xml_writer.generate_xml(data)
+        xml = self.news_xml_generator.generate_xml_string(data)
 
         result = validate_xml(
             path.join(path.dirname(__file__), 'news.dtd'), xml)
@@ -306,7 +306,7 @@ class TestXMLWriter(MockTestCase):
 
         self.replay()
 
-        xml = self.news_xml_writer.generate_xml(data)
+        xml = self.news_xml_generator.generate_xml_string(data)
 
         result = validate_xml(
             path.join(path.dirname(__file__), 'news.dtd'), xml)

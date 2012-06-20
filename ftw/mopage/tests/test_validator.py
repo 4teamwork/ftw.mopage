@@ -252,7 +252,7 @@ class TestValidationMethods(MockTestCase):
 
         self.replay()
 
-        result = self.data_validator.validate_not_empty_data()
+        result = self.data_validator._validate_not_empty_data()
 
         self.assertEquals(result, None)
 
@@ -262,7 +262,7 @@ class TestValidationMethods(MockTestCase):
 
         self.replay()
 
-        result = self.data_validator.validate_not_empty_data()
+        result = self.data_validator._validate_not_empty_data()
 
         self.assertEquals(
             result, 'The given data_provider does not return any data.')
@@ -273,7 +273,7 @@ class TestValidationMethods(MockTestCase):
 
         self.replay()
 
-        result = self.data_validator.validate_correct_instance()
+        result = self.data_validator._validate_correct_instance()
 
         self.assertEquals(result, None)
 
@@ -283,7 +283,7 @@ class TestValidationMethods(MockTestCase):
 
         self.replay()
 
-        result = self.data_validator.validate_correct_instance()
+        result = self.data_validator._validate_correct_instance()
 
         self.assertEquals(
             result, 'The data_provider must return a dict with data.')
@@ -303,7 +303,7 @@ class TestValidationMethods(MockTestCase):
 
         self.replay()
 
-        result = self.data_validator.validate_required_attributes()
+        result = self.data_validator._validate_required_attributes()
 
         self.assertEquals(
             result, None)
@@ -324,7 +324,7 @@ class TestValidationMethods(MockTestCase):
 
         self.replay()
 
-        result = self.data_validator.validate_required_attributes()
+        result = self.data_validator._validate_required_attributes()
 
         self.assertEquals(
             result, 'The following attribute are required. Please specify '
@@ -345,7 +345,7 @@ class TestValidationMethods(MockTestCase):
 
         self.replay()
 
-        result = self.data_validator.validate_attribute_type()
+        result = self.data_validator._validate_attribute_type()
 
         self.assertEquals(result, None)
 
@@ -366,7 +366,7 @@ class TestValidationMethods(MockTestCase):
 
         self.replay()
 
-        result = self.data_validator.validate_attribute_type()
+        result = self.data_validator._validate_attribute_type()
 
         self.assertEquals(
             result, 'The following attributes have a bad type: '
@@ -394,7 +394,7 @@ class TestValidationMethods(MockTestCase):
 
         self.replay()
 
-        result = self.data_validator.validate_attribute_length()
+        result = self.data_validator._validate_attribute_length()
 
         self.assertEquals(result, None)
 
@@ -420,7 +420,7 @@ class TestValidationMethods(MockTestCase):
 
         self.replay()
 
-        result = self.data_validator.validate_attribute_length()
+        result = self.data_validator._validate_attribute_length()
 
         self.assertEquals(
             result, 'Text is too long in following attributes: '
@@ -441,7 +441,7 @@ class TestValidationMethods(MockTestCase):
 
         self.replay()
 
-        result = self.data_validator.validate_unused_attributes()
+        result = self.data_validator._validate_unused_attributes()
 
         self.assertEquals(result, None)
 
@@ -462,7 +462,7 @@ class TestValidationMethods(MockTestCase):
 
         self.replay()
 
-        result = self.data_validator.validate_unused_attributes()
+        result = self.data_validator._validate_unused_attributes()
 
         self.assertEquals(result, 'You have defined unused attributes: '
             'badman, superman.')

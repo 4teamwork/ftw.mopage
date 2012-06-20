@@ -61,7 +61,7 @@ class TestMakeLinksAbsolute(MockTestCase):
         self.expect(
             self.obj.restrictedTraverse('rel_link', ANY)).result(None)
 
-        text = 'text with <a href=rel_link>My Link</a>'
+        text = 'text with <a href="rel_link">My Link</a>'
         self.replay()
 
         result = helpers.make_links_absolute(self.obj, text)

@@ -7,5 +7,5 @@ class ExportNews(BaseExport):
     filename = 'news'
     data_provider = i.IMopageNewsDataProvider
     data_validator = i.IMopageNewsDataValidator
-    lookup_provider = i.IMopageNewsLookup
-    xml_writer = i.IMopageNewsXMLWriter
+    lookup_provider = i.IMopageNewsObjectLookup
+    xml_generator = i.IMopageNewsXMLGenerator

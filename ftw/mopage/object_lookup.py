@@ -1,10 +1,10 @@
-from ftw.mopage.interfaces import IMopageEventLookup, IMopageNewsLookup, \
-    IMopageGeolocationLookup
-from zope.interface import implements
+from ftw.mopage import interfaces
 from Products.CMFCore.utils import getToolByName
+from zope.interface import implements
 
 
-class MopageBaseLookup(object):
+class MopageBaseObjectLookup(object):
+    implements(interfaces.IMopageObjectLookup)
 
     interface = 'ftw.mopage.interfaces.IMopageExporter'
 
@@ -13,26 +13,24 @@ class MopageBaseLookup(object):
         self.request = request
 
     def get_brains(self):
-        """Return the brains for the export
-        """
         catalog = getToolByName(self.context, 'portal_catalog')
 
         return catalog({'object_provides': self.interface})
 
 
-class MopageEventLookup(MopageBaseLookup):
-    implements(IMopageEventLookup)
+class MopageEventObjectLookup(MopageBaseObjectLookup):
+    implements(interfaces.IMopageEventObjectLookup)
 
     interface = 'ftw.mopage.interfaces.IMopageEvent'
 
 
-class MopageNewsLookup(MopageBaseLookup):
-    implements(IMopageNewsLookup)
+class MopageNewsObjectLookup(MopageBaseObjectLookup):
+    implements(interfaces.IMopageNewsObjectLookup)
 
     interface = 'ftw.mopage.interfaces.IMopageNews'
 
 
-class MopageGeolocationLookup(MopageBaseLookup):
-    implements(IMopageGeolocationLookup)
+class MopageGeolocationObjectLookup(MopageBaseObjectLookup):
+    implements(interfaces.IMopageGeolocationObjectLookup)
 
     interface = 'ftw.mopage.interfaces.IMopageGeolocation'

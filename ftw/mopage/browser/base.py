@@ -75,15 +75,17 @@ class BaseExport(BrowserView):
         return tmp
 
     def get_xml(self):
+        """ Return the generated xml as string
+        """
 
-        xml_writer = getMultiAdapter(
-            (self.context, self.request), self.xml_writer)
+        xml_generator = getMultiAdapter(
+            (self.context, self.request), self.xml_generator)
 
-        return xml_writer.generate_xml(self.get_data())
+        return xml_generator.generate_xml_string(self.get_data())
 
     def get_data(self):
-        """Gets the news from catalog and prepares the
-        attributes for the xml.
+        """ Return the received and validated data of all data providers in
+        a list
         """
 
         lookup_provider = getMultiAdapter(

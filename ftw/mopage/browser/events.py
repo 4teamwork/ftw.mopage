@@ -7,5 +7,5 @@ class ExportEvents(BaseExport):
     filename = 'events'
     data_provider = i.IMopageEventDataProvider
     data_validator = i.IMopageEventDataValidator
-    lookup_provider = i.IMopageEventLookup
-    xml_writer = i.IMopageEventXMLWriter
+    lookup_provider = i.IMopageEventObjectLookup
+    xml_generator = i.IMopageEventXMLGenerator

@@ -1,4 +1,30 @@
 from ftw.testing.layer import ComponentRegistryLayer
+from plone.app.testing import IntegrationTesting
+from plone.app.testing import PloneSandboxLayer
+from plone.app.testing import PLONE_FIXTURE
+from zope.configuration import xmlconfig
+
+
+class FtwMopageFunctionalLayer(PloneSandboxLayer):
+
+    defaultBases = (PLONE_FIXTURE, )
+
+    def setUpZope(self, app, configurationContext):
+        from ftw import mopage
+        xmlconfig.file('configure.zcml', package=mopage,
+            context=configurationContext)
+
+    def setUpPloneSite(self, portal):
+
+        self.applyProfile(portal, 'ftw.mopage:default')
+
+        from plone.app.testing import setRoles, TEST_USER_ID
+        setRoles(portal, TEST_USER_ID, ['Member', 'Contributor', 'Editor'])
+
+
+FTW_MOPAGE_FIXTURE = FtwMopageFunctionalLayer()
+FTW_MOPAGE_INTEGRATION_TESTING = IntegrationTesting(
+    bases=(FTW_MOPAGE_FIXTURE, ), name="FtwMopage:Integration")
 
 
 class FtwMopageZCMLLayer(ComponentRegistryLayer):

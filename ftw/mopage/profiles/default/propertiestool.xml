@@ -5,9 +5,6 @@
         <property name="partner" type="string"></property>
         <property name="partnerid" type="string"></property>
         <property name="password" type="string"></property>
-        <property name="importid_geolocations" type="string">1</property>
-        <property name="importid_news" type="string">1</property>
-        <property name="importid_events" type="string">1</property>
         <property name="export_dir" type="string">var</property>
     </object>
 </object>

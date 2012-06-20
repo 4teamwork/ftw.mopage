@@ -5,82 +5,79 @@
     xmlns:i18n="http://namespaces.zope.org/i18n"
     i18n_domain="ftw.mopage">
 
-  <five:registerPackage package="." initialize=".initialize" />
+    <five:registerPackage package="." initialize=".initialize" />
 
-  <include package=".browser" />
+    <include package=".browser" />
 
-  <genericsetup:registerProfile
-      name="default"
-      title="ftw.mopage"
-      directory="profiles/default"
-      description="MoPage xml-exports"
-      provides="Products.GenericSetup.interfaces.EXTENSION"
-      />
+    <genericsetup:registerProfile
+        name="default"
+        title="ftw.mopage"
+        directory="profiles/default"
+        description="MoPage xml-exports"
+        provides="Products.GenericSetup.interfaces.EXTENSION"
+    />
 
-<!-- News query provider -->
-<adapter
-  for="*
-       *"
-  factory=".data_lookup.MopageNewsLookup"
-  provides=".interfaces.IMopageNewsLookup"
- />
+    <!-- News query provider -->
+    <adapter
+        for="* *"
+        factory=".object_lookup.MopageNewsObjectLookup"
+        provides=".interfaces.IMopageNewsObjectLookup"
+    />
 
- <!-- Event query provider -->
- <adapter
-   for="*
-        *"
-   factory=".data_lookup.MopageEventLookup"
-   provides=".interfaces.IMopageEventLookup"
-  />
+    <!-- Event query provider -->
+    <adapter
+        for="* *"
+        factory=".object_lookup.MopageEventObjectLookup"
+        provides=".interfaces.IMopageEventObjectLookup"
+    />
 
-  <!-- Geolocation query provider -->
-  <adapter
-    for="*
-         *"
-    factory=".data_lookup.MopageGeolocationLookup"
-    provides=".interfaces.IMopageGeolocationLookup"
-   />
+    <!-- Geolocation query provider -->
+    <adapter
+        for="* *"
+        factory=".object_lookup.MopageGeolocationObjectLookup"
+        provides=".interfaces.IMopageGeolocationObjectLookup"
+    />
 
-<!-- News data validator -->
-<adapter
- for="* * .interfaces.IMopageNewsDataProvider"
- factory=".data_validator.MopageNewsDataValidator"
- provides=".interfaces.IMopageNewsDataValidator"
-/>
+    <!-- News data validator -->
+    <adapter
+        for="* * .interfaces.IMopageNewsDataProvider"
+        factory=".data_validator.MopageNewsDataValidator"
+        provides=".interfaces.IMopageNewsDataValidator"
+    />
 
-<!-- Event data validator -->
-<adapter
- for="* * .interfaces.IMopageEventDataProvider"
- factory=".data_validator.MopageEventDataValidator"
- provides=".interfaces.IMopageEventDataValidator"
-/>
+    <!-- Event data validator -->
+    <adapter
+        for="* * .interfaces.IMopageEventDataProvider"
+        factory=".data_validator.MopageEventDataValidator"
+        provides=".interfaces.IMopageEventDataValidator"
+    />
 
-<!-- Geolocation data validator -->
-<adapter
- for="* * .interfaces.IMopageGeolocationDataProvider"
- factory=".data_validator.MopageGeolocationDataValidator"
- provides=".interfaces.IMopageGeolocationDataValidator"
-/>
+    <!-- Geolocation data validator -->
+    <adapter
+        for="* * .interfaces.IMopageGeolocationDataProvider"
+        factory=".data_validator.MopageGeolocationDataValidator"
+        provides=".interfaces.IMopageGeolocationDataValidator"
+    />
 
-<!-- News xml writer -->
-<adapter
- for="* *"
- factory=".xml_writer.MopageNewsXMLWriter"
- provides=".interfaces.IMopageNewsXMLWriter"
-/>
+    <!-- News xml generator -->
+    <adapter
+        for="* *"
+        factory=".xml_generator.MopageNewsXMLGenerator"
+        provides=".interfaces.IMopageNewsXMLGenerator"
+    />
 
-<!-- Event xml writer -->
-<adapter
- for="* *"
- factory=".xml_writer.MopageEventXMLWriter"
- provides=".interfaces.IMopageEventXMLWriter"
-/>
+    <!-- Event xml generator -->
+    <adapter
+        for="* *"
+        factory=".xml_generator.MopageEventXMLGenerator"
+        provides=".interfaces.IMopageEventXMLGenerator"
+    />
 
-<!-- Geolocation xml writer -->
-<adapter
- for="* *"
- factory=".xml_writer.MopageGeolocationXMLWriter"
- provides=".interfaces.IMopageGeolocationXMLWriter"
-/>
+    <!-- Geolocation xml generator -->
+    <adapter
+        for="* *"
+        factory=".xml_generator.MopageGeolocationXMLGenerator"
+        provides=".interfaces.IMopageGeolocationXMLGenerator"
+    />
 
 </configure>

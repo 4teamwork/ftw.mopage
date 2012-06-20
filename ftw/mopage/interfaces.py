@@ -4,118 +4,158 @@
 from zope.interface import Interface
 
 
-class IMopageXMLDataValidator(Interface):
-    """Validates the data received from a MopageXMLDataProvider-Object
-    """
-
-    def validate(data):
-        """Start validation
-        """
-
-
-class IMopageGeolocationDataValidator(IMopageXMLDataValidator):
-    """Adapter validates data to export in mopage_geolocations.xml
-    """
-
-
-class IMopageEventDataValidator(IMopageXMLDataValidator):
-    """Adapter validates data to export in mopage_events.xml
-    """
-
-
-class IMopageNewsDataValidator(IMopageXMLDataValidator):
-    """Adapter validates data to export in mopage_news.xml
-    """
-
-
-class IMopageXMLWriter(Interface):
-
-    def generate_xml(data):
-        """ Start generating the xml and return it as string
-        """
-
-
-class IMopageGeolocationXMLWriter(IMopageXMLWriter):
-    """Adapter generate xml for geolocation export
-    """
-
-
-class IMopageEventXMLWriter(IMopageXMLWriter):
-    """Adapter generate xml for event export
-    """
-
-
-class IMopageNewsXMLWriter(IMopageXMLWriter):
-    """Adapter generate xml for news export
-    """
-
-
 class IMopageExporter(Interface):
-    """Markerinterface for Exportable objects with ftw.mopage
+    """
+    Markerinterface for Exportable objects with ftw.mopage
     """
 
 
 class IMopageEvent(IMopageExporter):
-    """Markerinterface for MopageEvents
+    """
+    Specific Markerinterface for MopageEvents
     """
 
 
 class IMopageGeolocation(IMopageExporter):
-    """Markerinterface for MopageGelocation
+    """
+    Specific Markerinterface for MopageGeolocations
     """
 
 
 class IMopageNews(IMopageExporter):
-    """Markerinterface for MopageNews
+    """
+    Specific Markerinterface for News
     """
 
 
-class IMopageBaseLookup(Interface):
-    """Adapter providing the query for mopage exports
+class IMopageDataValidator(Interface):
+    """
+    Adapter to validate the received data of the data provider.
+
+    To be sure the data received over a data provider is valid,
+    we use this validator.
+
+    The Validator raises a MopageValidationError when the data is not valid.
+    """
+
+    def validate(data):
+        """
+        Start the validation of data.
+        """
+
+    def get_attributes():
+        """
+        Return a list with all attributes to validate
+        """
+
+    def get_validation_queue():
+        """
+        Return a list with callable methods containing validation
+        functions.
+        """
+
+
+class IMopageGeolocationDataValidator(IMopageDataValidator):
+    """
+    Specific validation adapter used for geolocations.
+    """
+
+
+class IMopageEventDataValidator(IMopageDataValidator):
+    """
+    Specific validation adapter used for events.
+    """
+
+
+class IMopageNewsDataValidator(IMopageDataValidator):
+    """
+    Specific validation adapter used for news.
+    """
+
+
+class IMopageXMLGenerator(Interface):
+    """
+    Adapter to generate xmls with minidom.
+    """
+
+    def generate_xml_string(data):
+        """
+        Return a string of a xmlfile generated with 'data'
+        """
+
+
+class IMopageGeolocationXMLGenerator(IMopageXMLGenerator):
+    """
+    Specific adapter used to generate a xml for geolocations.
+    """
+
+
+class IMopageEventXMLGenerator(IMopageXMLGenerator):
+    """
+    Specific adapter used to generate a xml for events.
+    """
+
+
+class IMopageNewsXMLGenerator(IMopageXMLGenerator):
+    """
+    Specific adapter used to generate a xml for news.
+    """
+
+
+class IMopageObjectLookup(Interface):
+    """
+    Adapter to lookup objects providing data for the xml export
     """
 
     def get_brains():
-        """Return the catalogquery
+        """
+        Return brains providing data for the xml export
         """
 
 
-class IMopageEventLookup(IMopageBaseLookup):
-    """Adapter providing the query to export mopage events
+class IMopageEventObjectLookup(IMopageObjectLookup):
+    """
+    Specific adapter to lookup objects providing event data for xml export
     """
 
 
-class IMopageNewsLookup(IMopageBaseLookup):
-    """Adapter providing the query to export mopage news
+class IMopageNewsObjectLookup(IMopageObjectLookup):
+    """
+    Specific adapter to lookup objects providing news data for xml export
     """
 
 
-class IMopageGeolocationLookup(IMopageBaseLookup):
-    """Adapter providing the query to export mopage geolocations
+class IMopageGeolocationObjectLookup(IMopageObjectLookup):
+    """
+    Specific adapter to lookup objects providing geolocation
+    data for xml export
     """
 
 
-class IMopageXMLDataProvider(Interface):
-    """Adapter provides data to export in xml
+class IMopageDataProvider(Interface):
+    """
+    Adapter provides data to export in xml
     """
 
     def get_data():
-        """ Return required data in a dict
+        """
+        Return required data in a dict
         """
 
 
-class IMopageGeolocationDataProvider(IMopageXMLDataProvider):
-    """Adapter provides geolocationdata to export with
-    mopage_geolocation.xml-view
+class IMopageGeolocationDataProvider(IMopageDataProvider):
+    """
+    Specific adapter provides geolocation data to export in xml
     """
 
 
-class IMopageEventDataProvider(IMopageXMLDataProvider):
-    """Adapter provides data to export with
-    mopage_event.xml-view
+class IMopageEventDataProvider(IMopageDataProvider):
+    """
+    Specific adapter provides event data to export in xml
     """
 
 
-class IMopageNewsDataProvider(IMopageXMLDataProvider):
-    """Adapter provides data to export with
-    mopage_news.xml-view
+class IMopageNewsDataProvider(IMopageDataProvider):
+    """
+    Specific adapter provides news data to export in xml
     """
