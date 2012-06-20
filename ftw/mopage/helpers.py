@@ -1,4 +1,5 @@
 import re
+from DateTime import DateTime
 
 
 def cdata(text):
@@ -26,14 +27,21 @@ def make_links_absolute(obj, text):
 def convert_date(date):
     """Returns the date in format: 2011-2-15 12:55:34
     """
+
+    if not isinstance(date, DateTime):
+        return date
+
     return '%s %s' % (date.Date().replace('/', '-'),
                       date.Time())
 
 
-def is_allday(*kw):
+def is_allday(*dates):
     """Checks if all kw (DateTime) .Time() is '00:00:00'.
     """
-    for date in kw:
+    for date in dates:
+        if not isinstance(date, DateTime):
+            continue
+
         if date.Time() != '00:00:00':
             return False
     return True

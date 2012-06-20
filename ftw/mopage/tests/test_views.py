@@ -180,6 +180,8 @@ class TestViews(MockTestCase):
             ],
         )
 
+        result = view()
+
     def test_geolocation_download(self):
 
         self.expect(self.ctool(ANY)).result([self.brain_1])
