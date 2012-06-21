@@ -46,43 +46,49 @@ Marker Interfaces
 =================
 
 - IMopageExporter
-|
-|
---- IMopageEvent
---- IMopageGeolocation
---- IMopageNews
+
+ - IMopageEvent
+
+ - IMopageGeolocation
+
+ - IMopageNews
 
 
 Adapters Interfaces
 ===================
 
 - IMopageObjectLookup (context, request)
-|
-|
---- IMopageEventObjectLookup
---- IMopageNewsObjectLookup
---- IMopageGeolocationObjectLookup
+
+ - IMopageEventObjectLookup
+ 
+ - IMopageNewsObjectLookup
+ 
+ - IMopageGeolocationObjectLookup
+
 
 - IMopageDataProvider (context, request)
-|
-|
---- IMopageGeolocationDataProvider
---- IMopageEventDataProvider
---- IMopageNewsDataProvider
+
+ - IMopageGeolocationDataProvider
+ 
+ - IMopageEventDataProvider
+ 
+ - IMopageNewsDataProvider
 
 - IMopageDataValidator (context, request, dataprovider)
-|
-|
---- IMopageGeolocationDataValidator
---- IMopageEventDataValidator
---- IMopageNewsDataValidator
+
+ - IMopageGeolocationDataValidator
+ 
+ - IMopageEventDataValidator
+ 
+ - IMopageNewsDataValidator
 
 - IMopageXMLGenerator (context, request)
-|
-|
---- IMopageGeolocationXMLGenerator
---- IMopageEventXMLGenerator
---- IMopageNewsXMLGenerator
+
+ - IMopageGeolocationXMLGenerator
+ 
+ - IMopageEventXMLGenerator
+ 
+ - IMopageNewsXMLGenerator
 
 
 Implementation
@@ -101,31 +107,31 @@ Get Objects
 Get Data
 --------
 
-1. Get MopageDataProvider multiadapter with every object
-2. Call get_data method of MopageDataProviders
+3. Get MopageDataProvider multiadapter with every object
+4. Call get_data method of MopageDataProviders
 
 Validate Data
 -------------
 
-1. Get MopageDataValidator multiadapter of every objects dataprovider
-2. Call validate method of MopageDataValidator
+5. Get MopageDataValidator multiadapter of every objects dataprovider
+6. Call validate method of MopageDataValidator
 
 Abort or Continue
 -----------------
 
-1. If the MopageDataValidator raises an error, we abort the export
-2. If the MopageDataValidator validation is valid, we continue exporting data
+7. If the MopageDataValidator raises an error, we abort the export
+8. If the MopageDataValidator validation is valid, we continue exporting data
 
 Create the xml string
 ---------------------
 
-1. Get MopageXMLGenerator multiadapter
-2. Call generate_xml_string method of MopageXMLGenerator
+9. Get MopageXMLGenerator multiadapter
+10. Call generate_xml_string method of MopageXMLGenerator
 
 Return the string
 -----------------
 
-1. Return the xml string as xml download file
+11. Return the xml string as xml download file
 
 
 Usage
