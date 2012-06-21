@@ -11,7 +11,7 @@ tests_require = [
 setup(name='ftw.mopage',
       version=version,
       description="Provides moPage integration for Plone.",
-      long_description=open("README.txt").read() + "\n" + \
+      long_description=open("README.rst").read() + "\n" + \
           open("docs/HISTORY.txt").read(),
       classifiers=[
         "Framework :: Plone",

@@ -80,4 +80,24 @@
         provides=".interfaces.IMopageGeolocationXMLGenerator"
     />
 
+    <!-- News data provider -->
+    <adapter
+        for=".interfaces.IMopageNews *"
+        factory=".data_provider.MopageNewsDataProvider"
+        provides=".interfaces.IMopageNewsDataProvider"
+    />
+
+    <!-- Event data provider -->
+    <adapter
+        for=".interfaces.IMopageEvent *"
+        factory=".data_provider.MopageEventDataProvider"
+        provides=".interfaces.IMopageEventDataProvider"
+    />
+
+    <!-- Geolocation data provider -->
+    <adapter
+        for=".interfaces.IMopageGeolocation *"
+        factory=".data_provider.MopageGeolocationDataProvider"
+        provides=".interfaces.IMopageGeolocationDataProvider"
+    />
 </configure>

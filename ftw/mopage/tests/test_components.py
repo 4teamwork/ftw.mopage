@@ -39,6 +39,15 @@ class TestGeolocationComponents(MockTestCase):
         verifyClass(
             i.IMopageGeolocationObjectLookup, object_lookup.MopageGeolocationObjectLookup)
 
+    def test_data_provider_registered(self):
+
+        context = self.providing_stub(i.IMopageGeolocation)
+
+        self.replay()
+
+        obj = getMultiAdapter((context, object()), i.IMopageGeolocationDataProvider)
+        self.assertEquals(obj.__class__, data_provider.MopageGeolocationDataProvider)
+
     def test_data_validator_implements(self):
 
         self.replay()
@@ -109,6 +118,15 @@ class TestNewsComponents(MockTestCase):
 
         verifyClass(i.IMopageNewsObjectLookup, object_lookup.MopageNewsObjectLookup)
 
+    def test_data_provider_registered(self):
+
+        context = self.providing_stub(i.IMopageNews)
+
+        self.replay()
+
+        obj = getMultiAdapter((context, object()), i.IMopageNewsDataProvider)
+        self.assertEquals(obj.__class__, data_provider.MopageNewsDataProvider)
+
     def test_data_validator_implements(self):
 
         self.replay()
@@ -174,6 +192,15 @@ class TestEventComponents(MockTestCase):
             data_provider.MopageEventDataProvider))
 
         verifyClass(i.IMopageEventObjectLookup, object_lookup.MopageEventObjectLookup)
+
+    def test_data_provider_registered(self):
+
+        context = self.providing_stub(i.IMopageEvent)
+
+        self.replay()
+
+        obj = getMultiAdapter((context, object()), i.IMopageEventDataProvider)
+        self.assertEquals(obj.__class__, data_provider.MopageEventDataProvider)
 
     def test_data_validator_implements(self):
 
