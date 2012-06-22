@@ -17,21 +17,21 @@
         provides="Products.GenericSetup.interfaces.EXTENSION"
     />
 
-    <!-- News query provider -->
+    <!-- News object lookup -->
     <adapter
         for="* *"
         factory=".object_lookup.MopageNewsObjectLookup"
         provides=".interfaces.IMopageNewsObjectLookup"
     />
 
-    <!-- Event query provider -->
+    <!-- Event object lookup -->
     <adapter
         for="* *"
         factory=".object_lookup.MopageEventObjectLookup"
         provides=".interfaces.IMopageEventObjectLookup"
     />
 
-    <!-- Geolocation query provider -->
+    <!-- Geolocation object lookup -->
     <adapter
         for="* *"
         factory=".object_lookup.MopageGeolocationObjectLookup"

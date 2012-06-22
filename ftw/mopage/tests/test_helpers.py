@@ -5,27 +5,6 @@ from ftw.testing import MockTestCase
 from mocker import ANY
 
 
-class TestWrapCdata(MockTestCase):
-
-    layer = FTWMOPAGE_ZCML_LAYER
-
-    def test_no_text(self):
-
-        self.replay()
-
-        result = helpers.cdata('')
-
-        self.assertEquals(result, '')
-
-    def test_with_text(self):
-
-        self.replay()
-
-        result = helpers.cdata('<b>wrapped text</b>')
-
-        self.assertEquals(result, "<![CDATA[<b>wrapped text</b>]]>")
-
-
 class TestMakeLinksAbsolute(MockTestCase):
 
     layer = FTWMOPAGE_ZCML_LAYER

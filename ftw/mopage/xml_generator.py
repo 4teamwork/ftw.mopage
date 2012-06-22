@@ -53,7 +53,7 @@ class BaseMopageXMLGenerator(object):
         for key, value in kwargs.items():
             node.setAttribute(key, self._convert_to_string(value))
 
-        node.appendChild(self.xml.createTextNode(
+        node.appendChild(self.xml.createCDATASection(
             self._convert_to_string(content)))
 
         parent_node.appendChild(node)
@@ -106,7 +106,8 @@ class MopageGeolocationXMLGenerator(BaseMopageXMLGenerator):
             self._create_node('telefon1', xml_node, item.get('telefon1'))
             self._create_node('email', xml_node, item.get('email'))
             self._create_node(
-                'oeffnungszeiten', xml_node, item.get('oeffnungszeiten'))
+                'oeffnungszeiten', xml_node, item.get('oeffnungszeiten'),
+            )
             self._create_node(
                 'textmobile', xml_node, item.get('textmobile'))
             self._create_node('url_web', xml_node, item.get('url_web'))
@@ -155,7 +156,8 @@ class MopageNewsXMLGenerator(BaseMopageXMLGenerator):
             self._create_node('titel', xml_node, item.get('titel'))
             self._create_node(
                 'textmobile', xml_node, item.get('textmobile'))
-            self._create_node('textlead', xml_node, item.get('textlead'))
+            self._create_node(
+                'textlead', xml_node, item.get('textlead'))
             self._create_node('url_bild', xml_node, item.get('url_bild'))
             for rubrik in item.get('rubrik', []):
                 self._create_node('rubrik', xml_node, rubrik)
@@ -184,7 +186,7 @@ class MopageEventXMLGenerator(BaseMopageXMLGenerator):
             self._create_node('id', xml_node, item.get('id'))
             self._create_node('titel', xml_node, item.get('titel'))
             termin = self._create_node('termin', xml_node, allow_empty=True)
-            termin.setAttribute('allday', item.get('allday'))
+            termin.setAttribute('allday', str(item.get('allday')))
             self._create_node('von', termin, item.get('von'))
             self._create_node('bis', termin, item.get('bis'))
             xml_node.appendChild(termin)
@@ -194,7 +196,8 @@ class MopageEventXMLGenerator(BaseMopageXMLGenerator):
                 'textmobile', xml_node, item.get('textmobile'))
             for rubrik in item.get('rubrik', []):
                 self._create_node('rubrik', xml_node, rubrik)
-            self._create_node('textlead', xml_node, item.get('textlead'))
+            self._create_node(
+                'textlead', xml_node, item.get('textlead'))
             self._create_node('url_bild', xml_node, item.get('url_bild'))
             self._create_node('url_web', xml_node, item.get('url_web'))
             self._create_node(

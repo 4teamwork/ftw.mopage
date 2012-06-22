@@ -2,16 +2,6 @@ import re
 from DateTime import DateTime
 
 
-def cdata(text):
-    """ Wrap text into a cdata tag.
-
-    Used when putting html into a xml tag
-    """
-    if not text:
-        return ''
-    return "<![CDATA[%s]]>" % text
-
-
 def make_links_absolute(obj, text):
     """ Search for links into text and convert them into
     absolute links.
