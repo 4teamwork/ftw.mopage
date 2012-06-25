@@ -26,3 +26,6 @@ class InstallTestCase(unittest.TestCase):
         self.assertTrue(hasattr(properties, 'partnerid'))
         self.assertTrue(hasattr(properties, 'password'))
         self.assertTrue(hasattr(properties, 'export_dir'))
+        self.assertTrue(hasattr(properties, 'importid_event'))
+        self.assertTrue(hasattr(properties, 'importid_news'))
+        self.assertTrue(hasattr(properties, 'importid_geolocation'))

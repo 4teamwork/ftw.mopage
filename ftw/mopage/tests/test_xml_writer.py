@@ -36,6 +36,9 @@ class TestXMLGenerator(MockTestCase):
             partner='partner',
             partnerid='partnerid',
             password='password',
+            importid_news='importid_news',
+            importid_event='importid_event',
+            importid_geolocation='importid_geolocation',
         )
 
         self.ptool = self.stub()

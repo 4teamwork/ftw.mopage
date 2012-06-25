@@ -27,15 +27,14 @@ class BaseMopageXMLGenerator(object):
         """ Generates the header for the xml file
         """
 
-        properties = getToolByName(self.context, 'portal_properties')
-        properties = properties.mopage_properties
+        properties = self._get_mopage_properties()
 
         header = self.xml.createElement('import')
 
         self._set_attribute(header, 'partner', properties.partner)
         self._set_attribute(header, 'partnerid', properties.partnerid)
         self._set_attribute(header, 'passwort', properties.password)
-        self._set_attribute(header, 'importid', '1')
+        self._set_attribute(header, 'importid', self._get_import_id())
 
         self.xml.appendChild(header)
 
@@ -88,6 +87,16 @@ class BaseMopageXMLGenerator(object):
             return
 
         node.setAttribute(name, value)
+
+    def _get_import_id(self):
+        """ Return required importid attribute for the mopage export
+        """
+        return '1'
+
+    def _get_mopage_properties(self):
+        properties = getToolByName(self.context, 'portal_properties')
+        return properties.mopage_properties
+
 
 class MopageGeolocationXMLGenerator(BaseMopageXMLGenerator):
     implements(interfaces.IMopageGeolocationXMLGenerator)
@@ -143,6 +152,8 @@ class MopageGeolocationXMLGenerator(BaseMopageXMLGenerator):
 
         return self.xml.toxml()
 
+    def _get_import_id(self):
+        return self._get_mopage_properties().importid_geolocation
 
 class MopageNewsXMLGenerator(BaseMopageXMLGenerator):
     implements(interfaces.IMopageNewsXMLGenerator)
@@ -176,6 +187,8 @@ class MopageNewsXMLGenerator(BaseMopageXMLGenerator):
 
         return self.xml.toxml()
 
+    def _get_import_id(self):
+        return self._get_mopage_properties().importid_news
 
 class MopageEventXMLGenerator(BaseMopageXMLGenerator):
     implements(interfaces.IMopageEventXMLGenerator)
@@ -213,3 +226,6 @@ class MopageEventXMLGenerator(BaseMopageXMLGenerator):
             self.xml.firstChild.appendChild(xml_node)
 
         return self.xml.toxml()
+
+    def _get_import_id(self):
+        return self._get_mopage_properties().importid_event

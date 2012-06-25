@@ -34,6 +34,9 @@ class TestViews(MockTestCase):
             partnerid='partnerid',
             password='password',
             export_dir='var',
+            importid_news='importid_news',
+            importid_event='importid_event',
+            importid_geolocation='importid_geolocation',
         )
         self.file_path = os.path.join(
             os.environ.get('INSTANCE_HOME', ''), 'var')
