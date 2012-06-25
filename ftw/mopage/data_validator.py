@@ -187,7 +187,7 @@ class MopageEventDataValidator(BaseMopageDataValidator):
             Property('titel', True, str, 100),
             Property('von', True, str, 255),
             Property('bis', True, str, 255),
-            Property('allday', True, str, 1),
+            Property('allday', True, str, 5),
             Property('referenzort', False, str, 50),
             Property('textmobile', False, str, 10000),
             Property(
