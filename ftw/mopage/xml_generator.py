@@ -32,10 +32,10 @@ class BaseMopageXMLGenerator(object):
 
         header = self.xml.createElement('import')
 
-        header.setAttribute('partner', properties.partner)
-        header.setAttribute('partnerid', properties.partnerid)
-        header.setAttribute('passwort', properties.password)
-        header.setAttribute('importid', '1')
+        self._set_attribute(header, 'partner', properties.partner)
+        self._set_attribute(header, 'partnerid', properties.partnerid)
+        self._set_attribute(header, 'passwort', properties.password)
+        self._set_attribute(header, 'importid', '1')
 
         self.xml.appendChild(header)
 
@@ -51,7 +51,7 @@ class BaseMopageXMLGenerator(object):
         node = self.xml.createElement(tag_name)
 
         for key, value in kwargs.items():
-            node.setAttribute(key, self._convert_to_string(value))
+            self._set_attribute(node, key, self._convert_to_string(value))
 
         node.appendChild(self.xml.createCDATASection(
             self._convert_to_string(content)))
@@ -76,11 +76,18 @@ class BaseMopageXMLGenerator(object):
         """
 
         item = self.xml.createElement('item')
-        item.setAttribute('suchbar', '1')
-        item.setAttribute('status', '1')
+        self._set_attribute(item, 'suchbar', '1')
+        self._set_attribute(item, 'status', '1')
 
         return item
 
+    def _set_attribute(self, node, name, value):
+        """ Set a attribute on a node
+        """
+        if not name or not value:
+            return
+
+        node.setAttribute(name, value)
 
 class MopageGeolocationXMLGenerator(BaseMopageXMLGenerator):
     implements(interfaces.IMopageGeolocationXMLGenerator)
@@ -93,8 +100,8 @@ class MopageGeolocationXMLGenerator(BaseMopageXMLGenerator):
         for item in self.data:
 
             xml_node = self._get_item_node()
-            xml_node.setAttribute(
-                'mutationsdatum', item.get('mutationsdatum'))
+            self._set_attribute(
+                xml_node, 'mutationsdatum', item.get('mutationsdatum'))
             self._create_node('id', xml_node, item.get('id'))
             self._create_node('titel', xml_node, item.get('titel'))
             self._create_node('adresse', xml_node, item.get('adresse'))
@@ -148,10 +155,9 @@ class MopageNewsXMLGenerator(BaseMopageXMLGenerator):
         for item in self.data:
 
             xml_node = self._get_item_node()
-            xml_node.setAttribute('datumvon', item.get('datumvon'))
-            xml_node.setAttribute(
-                'mutationsdatum', item.get('mutationsdatum'))
-
+            self._set_attribute(xml_node, 'datumvon', item.get('datumvon'))
+            self._set_attribute(
+                xml_node, 'mutationsdatum', item.get('mutationsdatum'))
             self._create_node('id', xml_node, item.get('id'))
             self._create_node('titel', xml_node, item.get('titel'))
             self._create_node(
@@ -186,7 +192,7 @@ class MopageEventXMLGenerator(BaseMopageXMLGenerator):
             self._create_node('id', xml_node, item.get('id'))
             self._create_node('titel', xml_node, item.get('titel'))
             termin = self._create_node('termin', xml_node, allow_empty=True)
-            termin.setAttribute('allday', str(item.get('allday')))
+            self._set_attribute(termin, 'allday', str(item.get('allday')))
             self._create_node('von', termin, item.get('von'))
             self._create_node('bis', termin, item.get('bis'))
             xml_node.appendChild(termin)
