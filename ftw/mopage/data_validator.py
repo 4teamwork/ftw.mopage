@@ -78,13 +78,6 @@ class BaseMopageDataValidator(object):
 
         return methods
 
-    def _validate_not_empty_data(self):
-        """ If data is empty, we return a errormessage
-        """
-
-        if not self.data:
-            return 'The given data_provider does not return any data.'
-
     def _validate_correct_instance(self):
         """ If data is not a dict, we return a errormessage
         """

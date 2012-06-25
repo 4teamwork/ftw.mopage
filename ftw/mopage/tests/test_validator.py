@@ -246,27 +246,6 @@ class TestValidationMethods(MockTestCase):
             data_validator.BaseMopageDataValidator(
                 self.context, self.request, self.data_provider))
 
-    def test_validate_not_empty_data_ok(self):
-
-        self.expect(self.data_validator.data).result('data').count(0, None)
-
-        self.replay()
-
-        result = self.data_validator._validate_not_empty_data()
-
-        self.assertEquals(result, None)
-
-    def test_validate_not_empty_data_error(self):
-
-        self.expect(self.data_validator.data).result('').count(0, None)
-
-        self.replay()
-
-        result = self.data_validator._validate_not_empty_data()
-
-        self.assertEquals(
-            result, 'The given data_provider does not return any data.')
-
     def test_validate_correct_instance_ok(self):
 
         self.expect(self.data_validator.data).result({}).count(0, None)
