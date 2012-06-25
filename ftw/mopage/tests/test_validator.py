@@ -246,6 +246,14 @@ class TestValidationMethods(MockTestCase):
             data_validator.BaseMopageDataValidator(
                 self.context, self.request, self.data_provider))
 
+    def test_validate_no_data(self):
+
+        self.replay()
+
+        result = self.data_validator.validate({})
+
+        self.assertEquals(result, None)
+
     def test_validate_correct_instance_ok(self):
 
         self.expect(self.data_validator.data).result({}).count(0, None)

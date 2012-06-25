@@ -39,6 +39,9 @@ class BaseMopageDataValidator(object):
 
     def validate(self, data):
 
+        if not data:
+            return None
+
         self.data = data
         self.attributes = self.get_attributes()
 
