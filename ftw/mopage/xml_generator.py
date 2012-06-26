@@ -155,6 +155,7 @@ class MopageGeolocationXMLGenerator(BaseMopageXMLGenerator):
     def _get_import_id(self):
         return self._get_mopage_properties().importid_geolocation
 
+
 class MopageNewsXMLGenerator(BaseMopageXMLGenerator):
     implements(interfaces.IMopageNewsXMLGenerator)
 
@@ -189,6 +190,7 @@ class MopageNewsXMLGenerator(BaseMopageXMLGenerator):
 
     def _get_import_id(self):
         return self._get_mopage_properties().importid_news
+
 
 class MopageEventXMLGenerator(BaseMopageXMLGenerator):
     implements(interfaces.IMopageEventXMLGenerator)
