@@ -8,4 +8,5 @@ bin/
 buildout.cfg
 develop-eggs/
 eggs/
+parts/
 src/
