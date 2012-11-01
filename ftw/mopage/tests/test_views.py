@@ -8,6 +8,7 @@ from ftw.mopage.interfaces import IMopageEventDataProvider, \
 from zope.component import getMultiAdapter
 import os
 import shutil
+from tempfile import gettempdir
 
 
 class TestViews(MockTestCase):
@@ -15,6 +16,8 @@ class TestViews(MockTestCase):
     layer = FTWMOPAGE_ZCML_LAYER
 
     def setUp(self):
+        self._ori_instance_home = os.environ.get('INSTANCE_HOME', '')
+        os.environ['INSTANCE_HOME'] = gettempdir()
 
         self.request_map = []
 
@@ -226,4 +229,5 @@ class TestViews(MockTestCase):
         )
 
     def tearDown(self):
+        os.environ['INSTANCE_HOME'] = self._ori_instance_home
         shutil.rmtree(self.file_path)
