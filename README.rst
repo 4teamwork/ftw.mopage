@@ -60,34 +60,34 @@ Adapters Interfaces
 - IMopageObjectLookup (context, request)
 
  - IMopageEventObjectLookup
- 
+
  - IMopageNewsObjectLookup
- 
+
  - IMopageGeolocationObjectLookup
 
 
 - IMopageDataProvider (context, request)
 
  - IMopageGeolocationDataProvider
- 
+
  - IMopageEventDataProvider
- 
+
  - IMopageNewsDataProvider
 
 - IMopageDataValidator (context, request, dataprovider)
 
  - IMopageGeolocationDataValidator
- 
+
  - IMopageEventDataValidator
- 
+
  - IMopageNewsDataValidator
 
 - IMopageXMLGenerator (context, request)
 
  - IMopageGeolocationXMLGenerator
- 
+
  - IMopageEventXMLGenerator
- 
+
  - IMopageNewsXMLGenerator
 
 
@@ -227,6 +227,15 @@ Additional information
 
 In the docs-directory you find the official moPage interface documentation
 on Anthrazit-side.
+
+
+Links
+-----
+
+- Github project repository: https://github.com/4teamwork/ftw.mopage
+- Issue tracker: https://github.com/4teamwork/ftw.mopage/issues
+- Package on pypi: http://pypi.python.org/pypi/ftw.mopage
+- Continuous integration: https://jenkins.4teamwork.ch/search?q=ftw.mopage
 
 
 Copyright
