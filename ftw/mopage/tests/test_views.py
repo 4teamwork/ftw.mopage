@@ -16,6 +16,8 @@ class TestViews(MockTestCase):
     layer = FTWMOPAGE_ZCML_LAYER
 
     def setUp(self):
+        super(TestViews, self).setUp()
+
         self._ori_instance_home = os.environ.get('INSTANCE_HOME', '')
         os.environ['INSTANCE_HOME'] = gettempdir()
 

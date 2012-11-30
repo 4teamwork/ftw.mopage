@@ -10,6 +10,7 @@ class TestMakeLinksAbsolute(MockTestCase):
     layer = FTWMOPAGE_ZCML_LAYER
 
     def setUp(self):
+        super(TestMakeLinksAbsolute, self).setUp()
 
         self.obj = self.stub()
 

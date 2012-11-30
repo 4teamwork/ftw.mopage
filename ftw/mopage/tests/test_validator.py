@@ -10,6 +10,7 @@ class TestGeolocationValidator(MockTestCase):
     layer = FTWMOPAGE_ZCML_LAYER
 
     def setUp(self):
+        super(TestGeolocationValidator, self).setUp()
 
         self.request = self.stub_request()
         self.context = self.stub()
@@ -64,6 +65,7 @@ class TestEventValidator(MockTestCase):
     layer = FTWMOPAGE_ZCML_LAYER
 
     def setUp(self):
+        super(TestEventValidator, self).setUp()
 
         self.request = self.stub_request()
         self.context = self.stub()
@@ -114,6 +116,7 @@ class TestNewsValidator(MockTestCase):
     layer = FTWMOPAGE_ZCML_LAYER
 
     def setUp(self):
+        super(TestNewsValidator, self).setUp()
 
         self.request = self.stub_request()
         self.context = self.stub()
@@ -164,6 +167,7 @@ class TestValidate(MockTestCase):
     layer = FTWMOPAGE_ZCML_LAYER
 
     def setUp(self):
+        super(TestValidate, self).setUp()
 
         self.request = self.stub_request()
         self.context = self.stub()
@@ -208,6 +212,7 @@ class TestRaiseError(MockTestCase):
     layer = FTWMOPAGE_ZCML_LAYER
 
     def setUp(self):
+        super(TestRaiseError, self).setUp()
 
         self.request = self.stub_request()
         self.context = self.stub()
@@ -236,6 +241,7 @@ class TestValidationMethods(MockTestCase):
     layer = FTWMOPAGE_ZCML_LAYER
 
     def setUp(self):
+        super(TestValidationMethods, self).setUp()
 
         self.request = self.stub_request()
         self.context = self.stub()

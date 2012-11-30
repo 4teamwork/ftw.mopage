@@ -28,6 +28,7 @@ class TestXMLGenerator(MockTestCase):
     layer = FTWMOPAGE_ZCML_LAYER
 
     def setUp(self):
+        super(TestXMLGenerator, self).setUp()
 
         self.request = self.stub_request()
         self.context = self.stub()
