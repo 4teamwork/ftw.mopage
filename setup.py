@@ -14,12 +14,15 @@ setup(name='ftw.mopage',
       long_description=open("README.rst").read() + "\n" + \
           open("docs/HISTORY.txt").read(),
 
+      # Get more strings from
+      # http://www.python.org/pypi?%3Aaction=list_classifiers
+
       classifiers=[
-        "Framework :: Plone",
-        "Framework :: Zope2",
-        "Framework :: Zope3",
-        "Programming Language :: Python",
-        "Topic :: Software Development :: Libraries :: Python Modules",
+        'Framework :: Plone',
+        'Framework :: Plone :: 4.1',
+        'Framework :: Plone :: 4.2',
+        'Programming Language :: Python',
+        'Topic :: Software Development :: Libraries :: Python Modules',
         ],
 
       keywords='',
