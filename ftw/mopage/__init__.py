@@ -1,6 +1,3 @@
-"""Main product initializer
-"""
-
 from zope.i18nmessageid import MessageFactory
 
 # Define a message factory for when this product is internationalised.

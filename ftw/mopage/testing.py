@@ -1,7 +1,7 @@
 from ftw.testing.layer import ComponentRegistryLayer
 from plone.app.testing import IntegrationTesting
-from plone.app.testing import PloneSandboxLayer
 from plone.app.testing import PLONE_FIXTURE
+from plone.app.testing import PloneSandboxLayer
 from zope.configuration import xmlconfig
 
 
@@ -12,7 +12,7 @@ class FtwMopageFunctionalLayer(PloneSandboxLayer):
     def setUpZope(self, app, configurationContext):
         from ftw import mopage
         xmlconfig.file('configure.zcml', package=mopage,
-            context=configurationContext)
+                       context=configurationContext)
 
     def setUpPloneSite(self, portal):
 
