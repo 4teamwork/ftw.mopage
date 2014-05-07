@@ -295,16 +295,16 @@ class TestXMLGenerator(MockTestCase):
 
         data = [
             {
-            'id': 'newsidä',
-            'textmobile': 'textmobile',
-            'datumvon': 'datumvon',
-            'mutationsdatum': 'mutationsdatum',
-            'textlead': 'textlead',
-            'url_bild': 'url_bild',
-            'rubrik': ['rubirk1', 'rubrik2'],
-            'text': 'text',
-            'url_web': 'url_web',
-            'url_mobile': 'url_mobile',
+                'id': 'newsidä',
+                'textmobile': 'textmobile',
+                'datumvon': 'datumvon',
+                'mutationsdatum': 'mutationsdatum',
+                'textlead': 'textlead',
+                'url_bild': 'url_bild',
+                'rubrik': ['rubirk1', 'rubrik2'],
+                'text': 'text',
+                'url_web': 'url_web',
+                'url_mobile': 'url_mobile',
             },
         ]
 

@@ -1,7 +1,7 @@
-import os
+from Products.CMFCore.utils import getToolByName
 from Products.Five.browser import BrowserView
 from zope.component import getMultiAdapter
-from Products.CMFCore.utils import getToolByName
+import os
 
 
 class BaseExport(BrowserView):
