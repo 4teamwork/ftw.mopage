@@ -100,6 +100,8 @@ class BaseExport(BrowserView):
                 (obj, self.request), self.data_provider)
 
             data = data_provider.get_data()
+            if not data:
+                continue
 
             data_validator = getMultiAdapter(
                 (
