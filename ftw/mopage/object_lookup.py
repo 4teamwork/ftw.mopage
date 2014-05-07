@@ -12,10 +12,13 @@ class MopageBaseObjectLookup(object):
         self.context = context
         self.request = request
 
-    def get_brains(self):
+    def _get_brains(self):
         catalog = getToolByName(self.context, 'portal_catalog')
 
         return catalog({'object_provides': self.interface})
+
+    def get_objects(self):
+        return [each.getObject() for each in self._get_brains()]
 
 
 class MopageEventObjectLookup(MopageBaseObjectLookup):

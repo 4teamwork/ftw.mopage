@@ -91,11 +91,10 @@ class BaseExport(BrowserView):
         lookup_provider = getMultiAdapter(
             (self.context, self.request), self.lookup_provider)
 
-        brains = lookup_provider.get_brains()
+        objects = lookup_provider.get_objects()
 
         xml_data = []
-        for brain in brains:
-            obj = brain.getObject()
+        for obj in objects:
 
             data_provider = getMultiAdapter(
                 (obj, self.request), self.data_provider)

@@ -107,9 +107,9 @@ class IMopageObjectLookup(Interface):
     Adapter to lookup objects providing data for the xml export
     """
 
-    def get_brains():
+    def get_objects():
         """
-        Return brains providing data for the xml export
+        Return objects providing data for the xml export
         """
 
 
