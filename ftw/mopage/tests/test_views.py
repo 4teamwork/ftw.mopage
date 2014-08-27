@@ -9,6 +9,7 @@ from zope.component import getMultiAdapter
 import os
 import shutil
 from tempfile import gettempdir
+from plone.memoize import ram
 
 
 class TestViews(MockTestCase):
@@ -90,39 +91,9 @@ class TestViews(MockTestCase):
             self.geolocation_data_provider, IMopageGeolocationDataProvider,
             (Interface, Interface))
 
-    def test_refresh(self):
-
-        self.expect(self.ctool(ANY)).result([self.brain_1])
-
-        self.expect(self.request.form.get('refresh', ANY)).result('1')
-
-        data = {
-            'id': 'äxx',
-            'titel': 'abc123',
-            'allday': 'x',
-            'von': 'abc123',
-            'bis': 'abc123',
-        }
-
-        self.expect(self.event_data_provider.get_data()).result(data)
-
-        self.replay()
-
-        view = getMultiAdapter((self.context, self.request),
-                               name='mopage_events.xml')
-        result = view()
-
-        file_ = open(os.path.join(self.file_path, 'events.xml'), 'r')
-
-        self.assertTrue(isinstance(file_, file))
-        self.assertEquals(result, True)
-        self.assertEquals(self.request_map, [])
-
     def test_events_download(self):
 
         self.expect(self.ctool(ANY)).result([self.brain_1])
-
-        self.expect(self.request.form.get('refresh', ANY)).result('0')
 
         data = {
             'id': 'äxx',
@@ -156,8 +127,6 @@ class TestViews(MockTestCase):
     def test_news_download(self):
 
         self.expect(self.ctool(ANY)).result([self.brain_1])
-
-        self.expect(self.request.form.get('refresh', ANY)).result('0')
 
         data = {
             'id': 'äxx',
@@ -194,7 +163,6 @@ class TestViews(MockTestCase):
 
         self.expect(self.ctool(ANY)).result([self.brain_1])
 
-        self.expect(self.request.form.get('refresh', ANY)).result('0')
         self.expect(self.request.form.get('plain', ANY)).result('0')
 
         data = {

@@ -13,16 +13,6 @@ The package registers tree views:
 If you call a view, a new xml will be generated on the filesystem and
 will be downloaded.
 
-If the xml already exists, the view just download the file
-without update the data.
-
-If you just want to update the data of the xmls, you need to call the
-views with the 'refresh'-parameter:
-
-- mopage_news.xml?refresh=1
-- mopage_events.xml?refresh=1
-- mopage_geolocations.xml?refresh=1
-
 
 Requirements
 ============

@@ -14,11 +14,6 @@ class BaseExport(BrowserView):
 
     def __call__(self):
 
-        if self.request.form.get('refresh', None) == '1':
-
-            # refresh xml => do not download
-            return self.refresh()
-
         return self.download()
 
     def get_file_path(self):
@@ -56,9 +51,7 @@ class BaseExport(BrowserView):
         """ Download the xml file
         """
         path = self.get_file_path()
-
-        if not os.path.isfile(path):
-            self.refresh()
+        self.refresh()
 
         xml_file = open(path, 'r+')
         tmp = xml_file.read()
