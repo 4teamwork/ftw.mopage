@@ -222,9 +222,9 @@ on Anthrazit-side.
 Links
 -----
 
-- Github project repository: https://github.com/4teamwork/ftw.mopage
-- Issue tracker: https://github.com/4teamwork/ftw.mopage/issues
-- Package on pypi: http://pypi.python.org/pypi/ftw.mopage
+- Github: https://github.com/4teamwork/ftw.mopage
+- Issues: https://github.com/4teamwork/ftw.mopage/issues
+- Pypi: http://pypi.python.org/pypi/ftw.mopage
 - Continuous integration: https://jenkins.4teamwork.ch/search?q=ftw.mopage
 
 
