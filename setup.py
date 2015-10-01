@@ -37,6 +37,7 @@ setup(name='ftw.mopage',
       zip_safe=False,
 
       install_requires=[
+        'Plone',
         'setuptools',
         ],
       tests_require=tests_require,
