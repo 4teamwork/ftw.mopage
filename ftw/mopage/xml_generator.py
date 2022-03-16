@@ -1,5 +1,6 @@
 from ftw.mopage import interfaces
 from Products.CMFCore.utils import getToolByName
+from Products.CMFPlone.utils import safe_unicode
 from xml.dom import minidom
 from zope.interface import implements
 
@@ -62,13 +63,7 @@ class BaseMopageXMLGenerator(object):
     def _convert_to_string(self, value):
         """ Convert the given value into a string
         """
-
-        if isinstance(value, unicode):
-            value = value.encode('utf8')
-        elif isinstance(value, (int, float)):
-            value = str(value)
-
-        return value
+        return safe_unicode(value)
 
     def _get_item_node(self):
         """ Return a node to create a new item
@@ -150,7 +145,7 @@ class MopageGeolocationXMLGenerator(BaseMopageXMLGenerator):
 
             self.xml.firstChild.appendChild(xml_node)
 
-        return self.xml.toxml()
+        return self.xml.toxml(encoding='utf-8')
 
     def _get_import_id(self):
         return self._get_mopage_properties().importid_geolocation
@@ -186,7 +181,7 @@ class MopageNewsXMLGenerator(BaseMopageXMLGenerator):
 
             self.xml.firstChild.appendChild(xml_node)
 
-        return self.xml.toxml()
+        return self.xml.toxml(encoding='utf-8')
 
     def _get_import_id(self):
         return self._get_mopage_properties().importid_news
@@ -227,7 +222,7 @@ class MopageEventXMLGenerator(BaseMopageXMLGenerator):
 
             self.xml.firstChild.appendChild(xml_node)
 
-        return self.xml.toxml()
+        return self.xml.toxml(encoding='utf-8')
 
     def _get_import_id(self):
         return self._get_mopage_properties().importid_event
