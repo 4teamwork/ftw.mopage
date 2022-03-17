@@ -63,7 +63,10 @@ class BaseMopageXMLGenerator(object):
     def _convert_to_string(self, value):
         """ Convert the given value into a string
         """
-        return safe_unicode(value)
+        value = safe_unicode(value)
+        if isinstance(value, unicode):
+            return value
+        return unicode(value)
 
     def _get_item_node(self):
         """ Return a node to create a new item
